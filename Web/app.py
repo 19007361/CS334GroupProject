@@ -1,8 +1,12 @@
-from flask import *
+from flask import  Flask, render_template, flash, redirect, url_for, session, request, logging
 from py2neo import *
 
 
-app = Flask(__WhoCares__)
+app = Flask(__name__)
 
-if __WhoCares__ == '__main__':
+@app.route('/')
+def index():
+    return render_template('index.html')
+
+if __name__ == '__main__':
     app.run(debug=True)
