@@ -3,7 +3,7 @@
 * Web/
   * run.py
   * WhoKnows/
-    * __init__.py
+    * \_\_init__.py
     * models.py
     * views.py
     * static/
@@ -14,3 +14,6 @@
       * index.html
       * layout.html
       * profile.html
+
+# Hardcoded files
+Please place Hardcoded files in a new folder in the _web_ directory with the page's name.
