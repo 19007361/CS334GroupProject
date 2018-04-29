@@ -17,7 +17,7 @@ Navbar inspired by https://www.codeply.com/go/qhaBrcWp3v
 
 <body>
   <nav class="navbar navbar-expand-md navbar-light bg-light">
-    <a class="navbar-brand abs" href="#">
+    <a class="navbar-brand abs" href="/">
       <img src="{{ url_for('static', filename='Logo.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
       Who Knows
     </a>
@@ -25,14 +25,14 @@ Navbar inspired by https://www.codeply.com/go/qhaBrcWp3v
         <span class="navbar-toggler-icon"></span>
     </button>
     <div class="navbar-collapse collapse" id="collapsingNavbar">
-        <ul class="navbar-nav">
-          {% block navleft %}{% endblock %}
-        </ul>
-        <ul class="navbar-nav ml-auto">
-          {% block navright %}{% endblock %}
-        </ul>
+      <ul class="navbar-nav">
+        {% block navleft %}{% endblock %}
+      </ul>
+      <ul class="navbar-nav ml-auto">
+        {% block navright %}{% endblock %}
+      </ul>
     </div>
-</nav>
+  </nav>
 
   {% block body %}{% endblock %}
 </body>

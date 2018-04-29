@@ -1,5 +1,4 @@
 {% extends 'layout.html' %}
-
 {% block body %}
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
@@ -8,7 +7,6 @@
   </div>
 </div>
 {% endblock %}
-
 {% block navleft %}
 <!--
 <li class="nav-item active">
@@ -27,17 +25,12 @@
   </div>
 </li>
 {% endblock %}
-
 {% block navright %}
-
 <li class="nav-item">
-<a class="nav-link" href="/p/">
+  <a class="nav-link" href="/p/">
   <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
   <span class="d-md-none">Profile</span>
 </a>
 </li>
 {% endblock %}
-
-{% block title %}
-Profile Page
-{% endblock %}
+{% block title %} Profile Page {% endblock %}
