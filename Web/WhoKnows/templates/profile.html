@@ -1,12 +1,43 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Profile page!</h1>
-    <p class="lead">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+    <h1 class="display-4">Profile Page</h1>
+    <p class="lead">This is a preview of the Navbar on all pages but the homepage.</p>
   </div>
 </div>
+{% endblock %}
 
+{% block navbar %}
+<!--
+<li class="nav-item active">
+    <a class="nav-link" href="#">Link</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="//codeply.com">Codeply</a>
+</li>
+-->
+<li class="nav-item">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+    </div>
+  </div>
+</li>
+{% endblock %}
+
+{% block profile %}
+
+<li class="nav-item">
+<a class="nav-link" href="/p/">
+  <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+  <span class="d-md-none">Profile</span>
+</a>
+</li>
+{% endblock %}
+
+{% block title %}
+Profile Page
 {% endblock %}

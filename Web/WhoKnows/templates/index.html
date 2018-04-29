@@ -1,12 +1,30 @@
 {% extends 'layout.html' %}
 
 {% block body %}
-
 <div class="jumbotron jumbotron-fluid">
   <div class="container">
-    <h1 class="display-4">Fluid jumbotron</h1>
-    <p class="lead">This is a modified jumbotron that occupies the entire horizontal space of its parent.</p>
+    <h1 class="display-4">Home Page</h1>
+    <p class="lead">This is a preview of the Navbar for the homepage</p>
   </div>
 </div>
+{% endblock %}
 
+{% block navbar %}
+
+{% endblock %}
+
+{% block profile %}
+<li class="nav-item">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <input type="password" class="form-control" placeholder="Password" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-angle-right"></i></button>
+    </div>
+  </div>
+</li>
+{% endblock %}
+
+{% block title %}
+Who Knows? - Quora knockoff
 {% endblock %}
