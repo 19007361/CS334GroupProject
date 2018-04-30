@@ -1,54 +1,43 @@
+{% extends 'layout.html' %}
 
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile</title>
-  <link ref="stylesheet" href="static/bootstrap.css">
-  <link ref="stylesheet" href="static/main.css">
-</head>
-<body>
-  <!--{% extends 'layout.html' %} --> <!-- Commented out for now so that it does not print on the page anymore -->
+{% block body %}
+<div class="jumbotron jumbotron-fluid">
+  <div class="container">
+    <h1 class="display-4">Profile Page</h1>
+    <p class="lead">This is a preview of the Navbar on all pages but the homepage.</p>
+  </div>
+</div>
+{% endblock %}
 
-  {% block body %}
-  <div class="jumbotron jumbotron-fluid">
-    <div class="container">
-      <h1 class="display-4">Profile Page</h1>
-      <p class="lead">This is a preview of the Navbar on all pages but the homepage.</p>
+{% block navleft %}
+<!--
+<li class="nav-item active">
+    <a class="nav-link" href="#">Link</a>
+</li>
+<li class="nav-item">
+    <a class="nav-link" href="//codeply.com">Codeply</a>
+</li>
+-->
+<li class="nav-item">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
     </div>
   </div>
-  {% endblock %}
+</li>
+{% endblock %}
 
-  {% block navleft %}
-  <!--
-  <li class="nav-item active">
-      <a class="nav-link" href="#">Link</a>
-  </li>
-  <li class="nav-item">
-      <a class="nav-link" href="//codeply.com">Codeply</a>
-  </li>
-  -->
-  <li class="nav-item">
-    <div class="input-group">
-      I have added something to test.
-      <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
-      <div class="input-group-append">
-        <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
-      </div>
-    </div>
-  </li>
-  {% endblock %}
+{% block navright %}
 
-  {% block navright %}
+<li class="nav-item">
+<a class="nav-link" href="/p/">
+  <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+  <span class="d-md-none">Profile</span>
+</a>
+</li>
+{% endblock %}
 
-  <li class="nav-item">
-  <a class="nav-link" href="/p/">
-    <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-    <span class="d-md-none">Profile</span>
-  </a>
-  </li>
-  {% endblock %}
-
-  {% block title %}
-  Profile Page
-  {% endblock %}
-</body>
+{% block title %}
+Profile Page
+{% endblock %}
