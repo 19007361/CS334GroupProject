@@ -9,7 +9,7 @@
 <body>
   <!--{% extends 'layout.html' %} --> <!-- Commented out for now so that it does not print on the page anymore -->
 
-  {% block body %}
+  <!-- {% block body %} -->
   <div class="jumbotron jumbotron-fluid">
     <div class="container">
       <h1 class="display-4">Profile Page</h1>
@@ -29,7 +29,6 @@
   -->
   <li class="nav-item">
     <div class="input-group">
-      Let's hope merging works!!!!!!!
       <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
       <div class="input-group-append">
         <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
@@ -51,4 +50,14 @@
   {% block title %}
   Profile Page
   {% endblock %}
+
+  <aside>
+
+    <h1 id = "profile_name" align = "left">
+      Username
+    </h1>
+    <h4>
+      Userbio
+    </h4>
+  </aside>
 </body>
