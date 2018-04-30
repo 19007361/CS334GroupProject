@@ -11,6 +11,8 @@ def index():
 def profile():
     return render_template('profile.html')
 
+###########
+
 @app.route('/register', methods=['GET', 'POST'])
 def register():
     if request.method == 'POST':
@@ -28,3 +30,18 @@ def register():
             flash('Logged in.')
             return redirect(url_for('index'))
         return render_template('register.html')
+
+@app.route('/login', methods=['GET', 'POST'])
+def login():
+    if request.method == 'POST':
+        username = request.form['username']
+        password = request.form['password']
+
+        if not User(username).verify_password(password):
+            flash('Invalid login.')
+        else:
+            session['username'] = username
+            flash('Logged in.')
+            return redirect(url_for('index'))
+
+    return render_template('login.html')
