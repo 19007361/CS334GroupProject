@@ -50,4 +50,20 @@ class User:
         )
         rel = Relationship(user, "PUBLISHED", post)
         graph.create(rel)
-        
+
+
+    def getPosts(self):
+        query = """
+        MATCH (user:User)-[:PUBLISHED]->(post:Post)<-[:TAGGED]-(tag:Tag)
+        WHERE user.username = {username}
+        RETURN post, COLLECT(tag.name) AS tags
+        ORDER BY post.timestamp DESC LIMIT 5
+        """
+        return graph.cypher.execute(query, username=self.username)
+
+    upvoteQuestion(self, qID):
+        user = self.find()
+        post = graph.find_one("Post", "id", qID)
+        graph.create_unique(Relationship(user, "LIKE", post))
+
+    # To get similar users use same procedure as getPosts
