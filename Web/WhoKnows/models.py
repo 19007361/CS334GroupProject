@@ -51,6 +51,7 @@ class User:
         rel = Relationship(user, "PUBLISHED", post)
         graph.create(rel)
 
+
     def getPosts(self):
         query = """
         MATCH (user:User)-[:PUBLISHED]->(post:Post)<-[:TAGGED]-(tag:Tag)
