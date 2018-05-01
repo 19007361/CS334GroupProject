@@ -1,0 +1,71 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, shrink-to-fit">
+  <meta charset="utf-8">
+  <title>Search Page skeleton</title>
+  <link rel="stylesheet" href="css/bootstrap.css">
+</head>
+
+<body>
+  <div class="container-fluid">
+    <!Still planning to add some margin for a better look>
+    <div class="row justify-content-center">
+      <h3>Search Options:</h3>
+    </div>
+    <div class="row justify-content-center no-gutters">
+      <div class="col-3">
+
+      </div>
+      <div class="col-6">
+
+        <form name="SearchOptions">
+          <div class="form-group">
+            <input type="text" name="search_field" class="form-control" id="scontent" placeholder="Please enter search text here" />
+
+          </div>
+          <div id="q1Text">Please select type:</div>
+          <!User can select whether they wish to search for content within a post or a users name>
+          <input type="radio" name="posts" id="postOption" value="posts"> <label for="postOption" id="P">Posts</label>
+          <input type="radio" name="users" id="userOption" value="users"> <label for="userOption" id="U">Users</label><br />
+        </form>
+      </div>
+      <div class="col-3">
+        <button type="button" class="btn btn-secondary">Search</button><br />
+        <!Will send input string for content search>
+      </div>
+
+    </div>
+    <div class="row">
+
+      <p>
+        Search Results:
+        <!will be hidden until after search button is selected, placeholder text for now>
+      </p><br />
+      <table class="table">
+        <!will be empty and javascript will populate table based on search results and columns will adjust based on search type>
+        <thead>
+          <tr>
+            <th scope="col" id="UserContent">User</th>
+            <!Which user stated the content, answerer or questioner>
+            <th scope="col">Content</th>
+            <!maybe a few lines around the searched string to provide context to the returned post>
+            <th scope="col">From Post</th>
+            <!Will state which post it is from,e.g. content will be from jim's answer but from a post asking about photosynthesis>
+            <th scope="col">Date</th>
+            <!Optional, the date that the post was made>
+          </tr>
+        </thead>
+        <tbody>
+          <tr>
+
+          </tr>
+        </tbody>
+      </table>
+
+    </div>
+  </div>
+</body>
+
+</html>
