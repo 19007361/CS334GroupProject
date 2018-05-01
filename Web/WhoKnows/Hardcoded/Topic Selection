@@ -3,46 +3,45 @@
 
 
 <head>
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <meta charset="UTF-8">
 
-<!-- Latest compiled and minified CSS -->
-    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
+  <!-- Latest compiled and minified CSS -->
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
 
-<!-- jQuery library -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
+  <!-- jQuery library -->
+  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
 
-<!-- Latest compiled JavaScript -->
-    <script type="text/JavaScript"src="scripts.js"></script>
+  <!-- Latest compiled JavaScript -->
+  <script type="text/JavaScript" src="scripts.js"></script>
 
-    <title>Topic Selection</title>
+  <title>Topic Selection</title>
 </head>
 
 <body>
-   
-<div class="container">
 
-        <div class = "text-center">
-            
-    
-           <div class="col-xs-12 col-sm-12 col-lg-6" > 
-              <label><span>Topic Selection</span></label>
-               <br/>
-                   
-                   <input type="checkbox" name="topics" value="a">
-                   History<br/>
-                   <input type="checkbox" name="topics" value="b">
-                   Science<br/>
-                   <input type="checkbox" name="topics" value="c">
-                   Others <br/>
-                   <input type="checkbox" name="topics" value="d">
-                   ANything <br/>
-               </div>
-            
+  <div class="container">
+
+    <div class="text-center">
+
+
+      <div class="col-xs-12 col-sm-12 col-lg-6">
+        <label><span>Topic Selection</span></label>
+        <br/>
+
+        <input type="checkbox" name="topics" value="a"> History
+        <br/>
+        <input type="checkbox" name="topics" value="b"> Science
+        <br/>
+        <input type="checkbox" name="topics" value="c"> Others <br/>
+        <input type="checkbox" name="topics" value="d"> ANything <br/>
+      </div>
+
     </div>
-    
-    </div>
-    
+
+  </div>
+
 
 </body>
+
 </html>
