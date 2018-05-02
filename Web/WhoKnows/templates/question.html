@@ -1,0 +1,152 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+  <div class="row">
+    <div class="card widget">
+
+      <!--The question being viewed here-->
+      <div class="card-header">
+        <div class="row">
+          <div class="col-2 col-md-1">
+            <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
+          <div class="question_info">
+            <h4>What is my question?</h4>
+            <p>This is the content of my question.</p>
+            By: <a href="#">User Name</a> on 29 Apr 2018
+          </div>
+          <div class="action">
+            <button type="button" class="btn-primary" title="Bookmark">
+                              Bookmark
+                          </button>
+          </div>
+        </div>
+      </div>
+
+      <!--Panel to hold the answers for the question-->
+      <div class="card-body">
+
+        <!--Unordered list of the questions-->
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+
+              <!--Div to hold the profile picture of the user-->
+              <div class="col-2 col-md-1">
+                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
+
+              <!--This div holds the name, answer, Rating buttons-->
+              <div class="col-10 col-md-11">
+                <div>
+                  <div class="user-info">
+                    By: <a href="#">User Zero</a> on 30 Apr 2018
+                  </div>
+                </div>
+                <div>
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
+                </div>
+
+                <!--Holds the upvote and downvote buttons-->
+                <div class="action">
+                  <button type="button" class="btn btn-success" title="Upvote">
+                                          Upvote
+                                      </button>
+                </div>
+
+              </div>
+            </div>
+          </li>
+
+
+
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-2 col-md-1">
+                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
+              <div class="col-10 col-md-11">
+                <div>
+                  <div class="user-info">
+                    By: <a href="#">User One</a> on 30 Apr 2018
+                  </div>
+                </div>
+                <div>
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
+                </div>
+                <div class="action">
+                  <button type="button" class="btn btn-success" title="Upvote">
+                                          Upvote
+                                      </button>
+                </div>
+              </div>
+            </div>
+          </li>
+
+
+          <li class="list-group-item">
+            <div class="row">
+              <div class="col-2 col-md-1">
+                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
+              <div class="col-10 col-md-11">
+                <div>
+                  <div class="user-info">
+                    By: <a href="#">User Two</a> on 30 Apr 2018
+                  </div>
+                </div>
+                <div class="comment-text">
+                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
+                </div>
+                <div class="action">
+                  <button type="button" class="btn btn-success" title="Upvote">
+                                          Upvote
+                                      </button>
+                </div>
+              </div>
+            </div>
+          </li>
+
+          <!--Enter new answer-->
+          <li class="list-group-item">
+            <div class="row">
+
+              <!--Div to hold the profile picture of the user-->
+              <div class="col-2 col-md-1">
+                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
+
+              <!--This div holds the name, answer, Rating buttons-->
+              <div class="col-10 col-md-11">
+                <div>
+                  <div class="user-info">
+                    By: <a href="#">You</a> on 01 May 2018
+                  </div>
+                </div>
+                <textarea class="form-control" placeholder="Insert comment here" rows="4"></textarea>
+
+                <!--Holds the upvote and downvote buttons-->
+                <div class="action">
+                  <button type="button" class="btn btn-success" title="Answer">
+                                          Answer
+                                      </button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block navleft %}
+<li class="nav-item">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search" name="searchQ">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+    </div>
+  </div>
+</li>
+{% endblock %} {% block navright %}
+<li class="nav-item">
+  <a class="nav-link" href="/p/">
+  <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+  <span class="d-md-none">Profile</span>
+</a>
+</li>
+{% endblock %} {% block title %}Question {% endblock %}

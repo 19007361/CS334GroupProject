@@ -59,7 +59,7 @@ class User:
         RETURN post, COLLECT(tag.name) AS tags
         ORDER BY post.timestamp DESC LIMIT 5
         """
-        return graph.cypher.execute(query, username=self.username)
+        return graph.run(query, username=self.username)
 
     def upvoteQuestion(self, qID):
         user = self.find()

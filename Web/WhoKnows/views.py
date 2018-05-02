@@ -3,6 +3,10 @@ from .models import User
 
 app = Flask(__name__)
 
+def search(formData):
+    quer = formData["searchQ"]
+
+
 @app.route('/', methods=['GET','POST'])
 def index():
     #TODO: Richard
@@ -17,6 +21,7 @@ def index():
             return redirect(url_for('profile')) #redrects to profile page
     return render_template('index.html') #if just a page get, then will return this page
     #Look up how flask flashing works to give user certain feedback
+    #Edit the index html to make use of input groups
 
 @app.route('/p')
 def profile():
@@ -26,39 +31,10 @@ def profile():
 def search():
     return render_template('search.html')
 
-###########
-'''
+@app.route('/q')
+def question():
+    return render_template('question.html')
 
-@app.route('/register', methods=['GET', 'POST'])
-def register():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        if len(username) < 1:
-            flash('Your username must have more than one character.')
-        elif len(password) < 5:
-            flash('Your password must meet criteria.')
-        elif not User(username).register(password):
-            flash('This user exists already')
-        else:
-            session['username'] = Username
-            flash('Logged in.')
-            return redirect(url_for('index'))
-        return render_template('register.html')
-
-@app.route('/login', methods=['GET', 'POST'])
-def login():
-    if request.method == 'POST':
-        username = request.form['username']
-        password = request.form['password']
-
-        if not User(username).verify_password(password):
-            flash('Invalid login.')
-        else:
-            session['username'] = username
-            flash('Logged in.')
-            return redirect(url_for('index'))
-
-    return render_template('login.html')
-'''
+@app.route('/addQ')
+def newquestion():
+    return render_template('newquestion.html')

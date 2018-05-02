@@ -1,0 +1,43 @@
+{% extends 'layout.html' %} {% block body %}
+<div class="container">
+  <div class="card widget">
+    <div class="card-header">
+      <div class="col-12 col-md-12">
+        <form id="questionForm">
+          <div class="form-group">
+            <label for="textArea">Ask a question</label>
+            <textarea class="form-control" id="question" rows="5" placeholder="Type your question here"></textarea>
+          </div>
+          <div class="form-group">
+            <label class="form-check-label" for="topicSelect">Select topic from list</label>
+            <select class="form-control" id="topicSelect">
+                          <option>Sports</option>
+                          <option>Movies</option>
+                          <option>Travel</option>
+                          <option>Health</option>
+                          <option>Science</option>
+                        </select>
+          </div>
+          <button type="submit" class="btn btn-primary">Submit</button>
+        </form>
+      </div>
+    </div>
+  </div>
+</div>
+{% endblock %} {% block navleft %}
+<li class="nav-item">
+  <div class="input-group">
+    <input type="text" class="form-control" placeholder="Search" name="searchQ">
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+    </div>
+  </div>
+</li>
+{% endblock %} {% block navright %}
+<li class="nav-item">
+  <a class="nav-link" href="/p/">
+  <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
+  <span class="d-md-none">Profile</span>
+</a>
+</li>
+{% endblock %} {% block title %}Add Question {% endblock %}
