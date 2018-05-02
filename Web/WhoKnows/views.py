@@ -18,21 +18,22 @@ def index():
             username = request.form['username']
             name = request.form['name']
             passw = request.form['p1']
-            return redirect(url_for('profile')) #redrects to profile page
+            return redirect(url_for('profile', name="TEST")) #redrects to profile page
     return render_template('index.html') #if just a page get, then will return this page
     #Look up how flask flashing works to give user certain feedback
     #Edit the index html to make use of input groups
 
-@app.route('/p')
-def profile():
+@app.route('/p/<name>')
+def profile(name):
     return render_template('profile.html')
 
-@app.route('/s')
-def search():
+@app.route('/s/<query>')
+def search(query):
+    print(query)
     return render_template('search.html')
 
-@app.route('/q')
-def question():
+@app.route('/q/<id>')
+def question(id):
     return render_template('question.html')
 
 @app.route('/addQ')
