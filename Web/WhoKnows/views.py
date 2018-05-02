@@ -3,15 +3,22 @@ from .models import User
 
 app = Flask(__name__)
 
-@app.route('/')
+@app.route('/', methods=['GET','POST'])
 def index():
+    if request.method == 'POST':
+        if request.form['p1'] == request.form['p2']:
+            #pass same
+            username = request.form['username']
+            #name = request.form['name']
+            passw = request.form['p1']
+            return redirect(url_for('profile'))
     return render_template('index.html')
 
-@app.route('/p/')
+@app.route('/p')
 def profile():
     return render_template('profile.html')
 
-@app.route('/s/')
+@app.route('/s')
 def search():
     return render_template('search.html')
 
