@@ -11,6 +11,10 @@ def index():
 def profile():
     return render_template('profile.html')
 
+@app.route('/s/')
+def search():
+    return render_template('search.html')
+
 ###########
 '''
 
