@@ -4,65 +4,165 @@
 
 
 <head>
+ <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <meta charset="UTF-8">
-
-  <!-- Latest compiled and minified CSS -->
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/3.3.7/css/bootstrap.min.css">
-
-  <!-- jQuery library -->
-  <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.3.1/jquery.min.js"></script>
-
-  <!-- Latest compiled JavaScript -->
-  <script type="text/JavaScript" src="scripts.js"></script>
-
-  <title>Registration/login</title>
+  <title>Profile</title>
+  <script src="../static/bootstrap.js"></script>
+  <script src="../static/jquery-3.3.1.js"></script>
+  <script src="../static/popper.js"></script>
+  <link ref="stylesheet" type="text/css" href="../static/bootstrap.css">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link ref="stylesheet" type="text/css" href="../static/main.css">
+  <title>Homepage</title>
 </head>
 
 <body>
 
-  <div class="container">
+  <div class="container-fluid">
+      
+      
+      
+      
 
+       
+                <li class="nav-item">
+  <div class="input-group">
+  
+       
+         <!-- small logo -->
+<img src="../static/Logo.png" style="width:50px;height:50px;" alt="default">    <!-- Logo in the navbar must still push left and push username/passowrd right -->
+   
+        <!-- login details -->       
+    <input type="text" class="form-control" placeholder="Username" aria-label="Recipient's username" aria-describedby="basic-addon2">
+    <input type="password" class="form-control" placeholder="Password" aria-label="Recipient's username" aria-describedby="basic-addon2">
+
+ 
+
+    <div class="input-group-append">
+      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-angle-right"></i></button>
+    </div>
+        
+  </div>
+</li>
+ 
+          
+          
+          
+          
+    
     <div class="row">
-
-
-      <div id="login">
-
-        <div class="col-xs-12 col-sm-12 col-lg-6">
-          <div class="loginDetails">
-
-            <div name="loginInput">
-
-              Username:
-              <input type="text" name="username" value="">
-
-              <br/> Password:
-              <input type="password" name="password" value="">
-
-            </div>
+      <div class="col"><!--Large Logo on left maybe add some writing still not sure what to write -->
+          
+          <div  class="row justify-content-center align-items-center">
+              <!-- FUlllogo -->
+          <img src="../static/fullLogo.png" style="width:328px;height:328px;" alt="default">
           </div>
-          <button id="loginBtn">login</button>
-        </div>
+        
 
+      
       </div>
-      <div id="register">
-
-        <div class="col-xs-12 col-sm-12 col-lg-6">
-          <div class="regDetails">
-            Username:
-            <input type="text" name="username" value="">
-            <br/> Email:
-            <input type="text" name="Email" value="">
-            <br/> Password:
-            <input type="password" name="password" value="">
-          </div>
-          <button id="RegBtn">register</button>
-        </div>
-
+      <div class="col"> 
+        <main class="mainbody"><!-- Contains all the reigstraion details-->
+          <form class="form-horizontal" action='' method="POST">
+  <fieldset>
+<legend>Registarion:</legend>
+    <div class="control-group">
+      <!-- Username -->
+      <label class="control-label"  for="username">Username</label>
+      <div class="controls">
+        <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+        
       </div>
     </div>
+ 
+    <div class="control-group">
+      <!-- E-mail -->
+      <label class="control-label" for="email">E-mail</label>
+      <div class="controls">
+        <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+       
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password-->
+      <label class="control-label" for="password">Password</label>
+      <div class="controls">
+        <input type="password" id="password" name="password" placeholder="" class="input-xlarge">
+        
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Password -->
+      <label class="control-label"  for="password_confirm">Password (Confirm)</label>
+      <div class="controls">
+        <input type="password" id="password_confirm" name="password_confirm" placeholder="" class="input-xlarge">
+       
+      </div>
+    </div>
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-success">Register</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
 
+            
+  <!-- THinking will just hide all the Registraion details and have list of options to choose from rather since dropdown lists you have ot have slected to see options -->     
+ <form class="form-horizontal" action='' method="POST">
+  <fieldset>
+<legend>Topic Selection:</legend>
+
+ 
+    <div class="control-group">
+      <!-- bikes -->
+        <input type="checkbox" name="topic" value="Bike">  bikes<br>
+      </div>
+      
+          <div class="control-group">
+      <!-- History -->
+        <input type="checkbox" name="topic" value="History">  History<br>
+      </div>
+      
+      
+          <div class="control-group">
+      <!-- RW334 memo -->
+        <input type="checkbox" name="topic" value="RW334 memo">  RW334 memo<br>
+      </div>
+      
+      
+
+ 
+    <div class="control-group">
+      <!-- Button -->
+      <div class="controls">
+        <button class="btn btn-success">Follow Topics</button>
+      </div>
+    </div>
+  </fieldset>
+</form>
+         
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+            
+        </main>
+      </div>
+    </div>
   </div>
+
 </body>
 
 </html>
