@@ -7,32 +7,55 @@
   <title>Profile</title>
   <script src="../static/bootstrap.js"></script>
   <script src="../static/jquery-3.3.1.js"></script>
-  <script src="../static/popper.js"></script>
   <link ref="stylesheet" type="text/css" href="../static/bootstrap.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css" integrity="sha384-Gn5384xqQ1aoWXA+058RXPxPg6fy4IWvTNh0E263XmFcJlSAwiGgFAW/dAiS6JXm" crossorigin="anonymous">
+  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
   <link ref="stylesheet" type="text/css" href="../static/main.css">
+  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+
+  <style>
+    .edit-mode {
+      display: none !important;
+    }
+  </style>
 </head>
 
 <body>
   <div class="container-fluid">
     <div class="row">
       <div class="col-sm-4">
-        <img src="../../images/default_pic.gif" alt="default">
-        <h1 id="profile_name">Username</h1>
-        <h4>Userbio</h4>
+        <img src="../../images/default_pic.gif" width="150px" alt="default"><br>
+        <h1 id="profile_name" style="display: inline; text-transform: uppercase;">Username</h1> <a href="#"><i class="fas fa-edit edit-mode"></i></a> <br>
+        <h4 style="display: inline">User's Name</h4> <a href="#"><i class="fas fa-edit edit-mode"></i></a> <br>
+        <h5 style="display: inline">Bio:</h5> <a href="#"><i class="fas fa-edit edit-mode"></i></a> <br>
         <p>This is the bio of the user</p>
+        <span>0</span> upvotes
       </div>
       <div class="col-sm-8">
         <main class="mainbody">
-          <h3>Followers</h3>
-          <img src="../../images/default_pic.gif" alt="default" max-width="150px">
+          <h3 style="display: inline">Followers</h3>
+          <button style="float:right">Follow</button> <br>
+          <img src="../../images/default_pic.gif" alt="default" width="100px">
+          <span>User1</span>
+          <button>Follow</button>
+          <img src="../../images/default_pic.gif" alt="default" width="100px">
+          <span>User2</span>
+          <button>Follow</button>
+          <img src="../../images/default_pic.gif" alt="default" width="100px">
+          <span>User3</span>
+          <button>Follow</button>
+          <img src="../../images/default_pic.gif" alt="default" width="100px">
+          <span>User4</span>
+          <button>Follow</button>
+          <img src="../../images/default_pic.gif" alt="default" width="100px">
+          <span>User5</span>
+          <button>Follow</button>
           <h3>Questions</h3>
-          <h5>Why is life this way</h5>
-          <p>Because sadly we are innocent bystanders watching a very compelling story being played out for us.</p>
-          <h5>Why is life this way</h5>
-          <p>Because sadly we are innocent bystanders watching a very compelling story being played out for us.</p>
-          <h5>Why is life this way</h5>
-          <p>Because sadly we are innocent bystanders watching a very compelling story being played out for us.</p>
+          <h5>Is there a God?</h5>
+          <p>Only God knows.</p>
+          <h5>What's love got to do with it?</h5>
+          <p>What's love, but a second-hand emotion.</p>
+          <h5>Is this the real life? Is this just fantasy?</h5>
+          <p>Caught in a landslide, no escape from reality.</p>
         </main>
       </div>
     </div>
