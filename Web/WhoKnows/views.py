@@ -5,14 +5,17 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def index():
+    #TODO: Richard
     if request.method == 'POST':
-        if request.form['p1'] == request.form['p2']:
+        print(request.form)
+        print("loginUser" in request.form) # True if the login form
+        if request.form['p1'] == request.form['p2']: #Applicable for only regsistration
             #pass same
             username = request.form['username']
-            #name = request.form['name']
+            name = request.form['name']
             passw = request.form['p1']
-            return redirect(url_for('profile'))
-    return render_template('index.html')
+            return redirect(url_for('profile')) #redrects to profile page
+    return render_template('index.html') #if just a page get, then will return this page
 
 @app.route('/p')
 def profile():
