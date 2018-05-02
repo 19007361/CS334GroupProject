@@ -16,6 +16,7 @@ def index():
             passw = request.form['p1']
             return redirect(url_for('profile')) #redrects to profile page
     return render_template('index.html') #if just a page get, then will return this page
+    #Look up how flask flashing works to give user certain feedback
 
 @app.route('/p')
 def profile():
