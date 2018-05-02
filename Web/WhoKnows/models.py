@@ -4,7 +4,7 @@ from datetime import datetime
 import os
 import uuid
 
-graph = Graph()
+graph = Graph(username = "Database", password = "password")
 
 def timestamp():
     epoch = datetime.utcfromtimestamp(0)
@@ -61,7 +61,7 @@ class User:
         """
         return graph.cypher.execute(query, username=self.username)
 
-    upvoteQuestion(self, qID):
+    def upvoteQuestion(self, qID):
         user = self.find()
         post = graph.find_one("Post", "id", qID)
         graph.create_unique(Relationship(user, "LIKE", post))

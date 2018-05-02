@@ -1,5 +1,5 @@
 from flask import  Flask, render_template, flash, redirect, url_for, session, request, logging
-from .models import User, getPosts
+from .models import User
 
 app = Flask(__name__)
 
@@ -7,11 +7,12 @@ app = Flask(__name__)
 def index():
     return render_template('index.html')
 
-@app.route('/p')
+@app.route('/p/')
 def profile():
     return render_template('profile.html')
 
 ###########
+'''
 
 @app.route('/register', methods=['GET', 'POST'])
 def register():
@@ -45,3 +46,4 @@ def login():
             return redirect(url_for('index'))
 
     return render_template('login.html')
+'''
