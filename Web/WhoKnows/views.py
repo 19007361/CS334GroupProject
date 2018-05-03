@@ -34,7 +34,14 @@ def search(query):
 
 @app.route('/q/<id>')
 def question(id):
-    return render_template('question.html')
+    bookmarked = False
+    mainQ = ["This is the title", "This is the question", "Username", "01 Jan 2018"]
+    q1 = ["Username2", "Reply text blah blah blah", "32 Oct 1999", True]
+    q2 = ["Username3", "Reply text Hoop blah blah", "32 Nov 1999", False]
+    q3 = ["Username4", "Reply text blah Good blah", "32 Dec 1999", False]
+    replies = [q1, q2, q3]
+    currentUser = ["Username5", "My cool Name"]
+    return render_template('question.html', bookmarked = bookmarked, question=mainQ, replies = replies, noPosts=len(replies), me = currentUser)
 
 @app.route('/addQ')
 def newquestion():

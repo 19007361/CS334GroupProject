@@ -1,19 +1,23 @@
 {% extends 'layout.html' %} {% block body %}
 <br>
 <div class="container">
-  <div class="row">
     <div class="card widget">
 
       <!--The question being viewed here-->
       <div class="card-header">
+        {% if bookmarked == True %}
+        <button type="button" class="btn btn-outline-primary float-right active" data-toggle="button" title="Bookmark"><i class="fa fa-bookmark"></i></button>
+        {% else %}
         <button type="button" class="btn btn-outline-primary float-right" data-toggle="button" title="Bookmark"><i class="fa fa-bookmark"></i></button>
+        {% endif %}
         <div class="row">
-          <div class="col-2 col-md-1">
-            <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
-          <div class="question_info">
-            <h4>What is my question?</h4>
-            <p>This is the content of my question.</p>
-            By: <a href="#">User Name</a> on 29 Apr 2018
+          <div class="">
+              <img src="{{ url_for('static', filename='Users/'+question[2]+'.png') }}" width="80" height="80" class="rounded-circle img-fluid" alt="">
+          </div>
+          <div class="col">
+            <h4>{{ question[0] }}</h4>
+            <p>{{ question[1]}}</p>
+            By: <a href="/p/{{question[2]}}">{{ question[2]}}</a> {{question[3]}}
           </div>
         </div>
       </div>
@@ -21,6 +25,8 @@
       <!--Panel to hold the answers for the question-->
       <div class="card-body">
 
+
+        {% for i in range(noPosts) %}
         <!--Unordered list of the questions-->
         <ul class="list-group">
           <li class="list-group-item">
@@ -28,76 +34,30 @@
 
               <!--Div to hold the profile picture of the user-->
               <div class="col-2 col-md-1">
-                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" />
+                <img src="{{ url_for('static', filename='Users/'+replies[i][0]+'.png') }}" width="80" height="80" class="rounded-circle img-fluid" alt="">
               </div>
               <!--This div holds the name, answer, Rating buttons-->
               <div class="col-10 col-md-11">
                 <div>
                   <div class="user-info">
-                    By: <a href="#">User Zero</a> on 30 Apr 2018
+                    By: <a href="/p/{{replies[i][0]}}">{{ replies[i][0]}}</a> {{ replies[i][2]}}
                   </div>
                 </div>
                 <div>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
+                  {{ replies[i][1]}}
                 </div>
                 <!--Holds the upvote and downvote buttons-->
                 <div class="action">
-                  <button type="button" class="btn btn-outline-success float-right" data-toggle="button" title="Upvote">
-                                          <i class="fas fa-thumbs-up"></i> Upvote
-                                      </button>
-                </div>
-
-
-              </div>
-            </div>
-          </li>
-
-
-
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 col-md-1">
-                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
-              <div class="col-10 col-md-11">
-                <div>
-                  <div class="user-info">
-                    By: <a href="#">User One</a> on 30 Apr 2018
-                  </div>
-                </div>
-                <div>
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
-                </div>
-                <div class="action">
-                  <button type="button" class="btn btn-success" title="Upvote">
-                                          Upvote
-                                      </button>
+                  {% if replies[i][3] == True%}
+                  <button type="button" class="btn btn-outline-success float-right active" data-toggle="button" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  {% else %}
+                  <button type="button" class="btn btn-outline-success float-right" data-toggle="button" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  {% endif %}
                 </div>
               </div>
             </div>
           </li>
-
-
-          <li class="list-group-item">
-            <div class="row">
-              <div class="col-2 col-md-1">
-                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
-              <div class="col-10 col-md-11">
-                <div>
-                  <div class="user-info">
-                    By: <a href="#">User Two</a> on 30 Apr 2018
-                  </div>
-                </div>
-                <div class="comment-text">
-                  Lorem ipsum dolor sit amet, consectetuer adipiscing elit, sed diam nonummy nibh euismod tincidunt ut laoreet dolore magna aliquam erat volutpat. Ut wisi enim
-                </div>
-                <div class="action">
-                  <button type="button" class="btn btn-success" title="Upvote">
-                                          Upvote
-                                      </button>
-                </div>
-              </div>
-            </div>
-          </li>
+          {% endfor %}
 
           <!--Enter new answer-->
           <li class="list-group-item">
@@ -105,29 +65,26 @@
 
               <!--Div to hold the profile picture of the user-->
               <div class="col-2 col-md-1">
-                <img src="http://placehold.it/80" class="rounded-circle img-fluid" alt="" /></div>
+                <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" class="rounded-circle img-fluid" alt="" /></div>
 
               <!--This div holds the name, answer, Rating buttons-->
               <div class="col-10 col-md-11">
                 <div>
                   <div class="user-info">
-                    By: <a href="#">You</a> on 01 May 2018
+                    By: <a href="/p/{{me[0]}}">You</a>
                   </div>
                 </div>
                 <textarea class="form-control" placeholder="Insert comment here" rows="4"></textarea>
 
                 <!--Holds the upvote and downvote buttons-->
                 <div class="action">
-                  <button type="button" class="btn btn-success float-right" title="Post my response">
-                                          <i class="fas fa-reply"></i> Post my response
-                                      </button>
+                  <button type="button" class="btn btn-success float-right" title="Post my response"><i class="fas fa-reply"></i> Post my response</button>
                 </div>
               </div>
             </div>
           </li>
         </ul>
       </div>
-    </div>
   </div>
 </div>
 {% endblock %} {% block navleft %}
@@ -141,9 +98,18 @@
 </li>
 {% endblock %} {% block navright %}
 <li class="nav-item">
-  <a class="nav-link" href="/p/">
-  <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-  <span class="d-md-none">Profile</span>
+  <a class="nav-link" title="Add a Question" href="/addQ"><i class="fas fa-plus"></i>
+  <span class="d-md-none">Add a Question</span></a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" title="Sign out" href="/addQ"><i class="fas fa-sign-out-alt"></i>
+  <span class="d-md-none">Sign out</span></a>
+</li>
+<li class="nav-item">
+  <a class="nav-link" href="/p/{{me[0]}}">
+  <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" width="30" height="30" class="d-inline-block align-top rounded-circle" alt="See your profile">
+  <span class="d-md-none">{{me[1]}}</span>
 </a>
 </li>
-{% endblock %} {% block title %}Question {% endblock %}
+{% endblock %}
+{% block title %}{{ question[0] }}{% endblock %}
