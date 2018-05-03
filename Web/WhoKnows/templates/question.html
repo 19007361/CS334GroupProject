@@ -1,0 +1,100 @@
+{% extends 'layout.html' %} {% block body %}
+<br>
+<div class="container">
+    <div class="card widget">
+
+      <!--The question being viewed here-->
+      <div class="card-header">
+        {% if bookmarked == True %}
+        <button type="button" class="btn btn-outline-primary float-right active" data-toggle="button" title="Bookmark"><i class="fa fa-bookmark"></i></button>
+        {% else %}
+        <button type="button" class="btn btn-outline-primary float-right" data-toggle="button" title="Bookmark"><i class="fa fa-bookmark"></i></button>
+        {% endif %}
+
+        <div class="row">
+          <div class="">
+              <img src="{{ url_for('static', filename='Users/'+question[2]+'.png') }}" width="80" height="80" class="rounded-circle img-fluid" alt="">
+          </div>
+          <div class="col">
+            <h4>{{ question[0] }}</h4>
+            <p>{{ question[1]}}</p>
+            By: <a href="/p/{{question[2]}}">{{ question[2]}}</a> {{question[3]}}
+          </div>
+          <span class="float-right text-muted"><i>{{question[4]}}</i></span>
+        </div>
+      </div>
+
+      <!--Panel to hold the answers for the question-->
+      <div class="card-body">
+
+
+        {% for i in range(noPosts) %}
+        <!--Unordered list of the questions-->
+        <ul class="list-group">
+          <li class="list-group-item">
+            <div class="row">
+
+              <!--Div to hold the profile picture of the user-->
+              <div class="col-2 col-md-1">
+                <img src="{{ url_for('static', filename='Users/'+replies[i][0]+'.png') }}" width="80" height="80" class="rounded-circle img-fluid" alt="">
+              </div>
+              <!--This div holds the name, answer, Rating buttons-->
+              <div class="col-10 col-md-11">
+                <div>
+                  <div class="user-info">
+                    By: <a href="/p/{{replies[i][0]}}">{{ replies[i][0]}}</a> {{ replies[i][2]}}
+                  </div>
+                </div>
+                <div>
+                  {{ replies[i][1]}}
+                </div>
+                <!--Holds the upvote and downvote buttons-->
+                <div class="action">
+                  {% if replies[i][3] == True%}
+                  <button type="button" class="btn btn-outline-success float-right active" data-toggle="button" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  {% else %}
+                  <button type="button" class="btn btn-outline-success float-right" data-toggle="button" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  {% endif %}
+                </div>
+              </div>
+            </div>
+          </li>
+          {% endfor %}
+
+          <!--Enter new answer-->
+          <li class="list-group-item">
+            <div class="row">
+
+              <!--Div to hold the profile picture of the user-->
+              <div class="col-2 col-md-1">
+                <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" class="rounded-circle img-fluid" alt="" /></div>
+
+              <!--This div holds the name, answer, Rating buttons-->
+              <div class="col-10 col-md-11">
+                <div>
+                  <div class="user-info">
+                    By: <a href="/p/{{me[0]}}">You</a>
+                  </div>
+                </div>
+                <textarea class="form-control" placeholder="Insert comment here" rows="4"></textarea>
+
+                <!--Holds the upvote and downvote buttons-->
+                <div class="action">
+                  <button type="button" class="btn btn-success float-right" title="Post my response"><i class="fas fa-reply"></i> Post my response</button>
+                </div>
+              </div>
+            </div>
+          </li>
+        </ul>
+      </div>
+  </div>
+</div>
+{% endblock %} {% block navleft %}
+{% include 'searchHandler.html'%}
+{% endblock %}
+{% block navright %}
+  {% include 'commonNav.html'%}
+{% endblock %}
+{% block title %}
+  {{ question[0] }}
+{% endblock %}
