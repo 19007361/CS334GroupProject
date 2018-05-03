@@ -19,13 +19,13 @@ class User:
     def __init__(self, username):
         self.username = username
 
-    def getUser(self):
-        user = graph.find_one("User", "Username", self.username)
+    def find(self):
+        user = graph.find_one('User', 'username', self.username)
         return user
 
-    def addUser(self, password):
+    def addUser(self, password, email, name):
         if not self.find():
-            user = Node("User", username=self.username, password=bcrypt.encrypt(password))
+            user = Node("User", username=self.username, password=bcrypt.encrypt(password), email=email, fullName=name)
             graph.create(user)
             return True
         else:
@@ -34,7 +34,7 @@ class User:
     def checkPass(self, password):
         user = self.find()
         if user:
-            return bcrypt.verify_password(password, user['password'])
+            return bcrypt.verify(password, user['password'])
         else:
             return False
 

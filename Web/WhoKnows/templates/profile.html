@@ -27,11 +27,6 @@
 </li>
 {% endblock %}
 {% block navright %}
-<li class="nav-item">
-  <a class="nav-link" href="/p/">
-  <img src="{{ url_for('static', filename='defaultProf.png') }}" width="30" height="30" class="d-inline-block align-top" alt="">
-  <span class="d-md-none">Profile</span>
-</a>
-</li>
+  {% include 'commonNav.html'%}
 {% endblock %}
 {% block title %} Profile Page {% endblock %}

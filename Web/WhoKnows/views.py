@@ -3,29 +3,46 @@ from .models import User
 
 app = Flask(__name__)
 
-def search(formData):
-    quer = formData["searchQ"]
-
-
 @app.route('/', methods=['GET','POST'])
 def index():
     #TODO: Richard
-    if request.method == 'POST':
-        print(request.form)
-        print("loginUser" in request.form) # True if the login form
-        if request.form['p1'] == request.form['p2']: #Applicable for only regsistration
-            #pass same
-            username = request.form['username']
-            name = request.form['name']
-            passw = request.form['p1']
-            return redirect(url_for('profile', name="TEST")) #redrects to profile page
-    return render_template('index.html') #if just a page get, then will return this page
-    #Look up how flask flashing works to give user certain feedback
-    #Edit the index html to make use of input groups
+    if 'username' in session:
+        # A user has already logged on
+        return redirect(url_for('profile', name=session['username']))
+    else:
+        if request.method == 'POST':
+            if "loginUser" in request.form:
+                #Login
+                username = request.form['loginUN']
+                passw = request.form['loginPass']
+                if User(username).checkPass(passw):
+                    session['username']=username
+                    return redirect(url_for('profile', name=username)) #redrects to profile page
+                else:
+                    flash("GET REKT!")
+            else:
+                #Registration
+                if request.form['p1'] == request.form['p2']:
+                    #pass same
+                    username = request.form['username']
+                    name = request.form['name']
+                    passw = request.form['p1']
+                    email = request.form['email']
 
-@app.route('/p/<name>')
+                    if User(username).addUser(passw, email, name):
+                        session['username'] = username
+                        return redirect(url_for('profile', name=username)) #redrects to profile page
+                    else:
+                        flash("Somethang funk-a")
+        return render_template('index.html') #if just a page get, then will return this page
+        #Look up how flask flashing works to give user certain feedback
+        #Edit the index html to make use of input groups
+
+@app.route('/p/<name>', methods=['GET','POST'])
 def profile(name):
-    return render_template('profile.html')
+    if request.method == 'POST':
+        print("hi")
+    return render_template('profile.html', me = [session['username'], "FULL"])
 
 @app.route('/s/<query>')
 def search(query):
@@ -49,3 +66,9 @@ def question(id):
 @app.route('/addQ')
 def newquestion():
     return render_template('newquestion.html')
+
+@app.route('/logout')
+def logout():
+    session.pop('username', None)
+    flash('Logged out.')
+    return redirect(url_for('index'))
