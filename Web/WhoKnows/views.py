@@ -29,8 +29,11 @@ def profile(name):
 
 @app.route('/s/<query>')
 def search(query):
-    print(query)
-    return render_template('search.html')
+    currentUser = ["Username5", "My cool Name"]
+    r1 = ["Title1", "Text1", "Topic1", "ID1"]
+    r2 = ["Title2", "Text2", "Topic2", "ID2"]
+    results = [r1, r2]
+    return render_template('search.html', me=currentUser, results=results, noPosts=len(results), query=query)
 
 @app.route('/q/<id>')
 def question(id):
