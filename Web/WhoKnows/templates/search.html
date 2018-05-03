@@ -7,7 +7,11 @@
       <h4>Search results for <i>{{query}}</i></h4>
     </div>
     <ul class="list-group list-group-flush">
-
+      {% if noPosts == 0 %}
+      <li class="list-group-item">
+        <h5>No results found</h5>
+      </li>
+      {% else %}
       {% for i in range(noPosts) %}
       <li class="list-group-item">
         <small class="text-muted float-right">{{results[i][2]}}</small>
@@ -16,6 +20,7 @@
         <a href="/q/{{results[i][3]}}" class="float-right">read more</a>
       </li>
       {% endfor %}
+      {% endif %}
     </ul>
   </div>
 </div>
