@@ -65,7 +65,7 @@ def question(id):
 
 @app.route('/addQ')
 def newquestion():
-    return render_template('newquestion.html')
+    return render_template('newquestion.html', me = [session['username'], "FULL"])
 
 @app.route('/logout')
 def logout():

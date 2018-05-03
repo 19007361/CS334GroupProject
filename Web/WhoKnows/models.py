@@ -1,8 +1,10 @@
 from py2neo import Graph, Node, Relationship
 from passlib.hash import bcrypt
 from datetime import datetime
+from flask import url_for
 import os
 import uuid
+import shutil
 
 graph = Graph(username = "Database", password = "password")
 
@@ -25,6 +27,8 @@ class User:
 
     def addUser(self, password, email, name):
         if not self.find():
+            #move file
+            shutil.copy(os.path.dirname(__file__)+"/static/defaultProf.png", os.path.dirname(__file__)+"/static/Users/"+self.username+".png")
             user = Node("User", username=self.username, password=bcrypt.encrypt(password), email=email, fullName=name)
             graph.create(user)
             return True
