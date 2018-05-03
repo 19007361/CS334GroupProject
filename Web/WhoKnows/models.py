@@ -28,6 +28,10 @@ class User:
         user = graph.find_one('User', 'username', self.username)
         return user
 
+    def findT(self, term):
+        user = graph.find_one('Question', 'title', term)
+        return user
+
     def addUser(self, password, email, name):
         if not self.find():
             #move file
@@ -47,17 +51,17 @@ class User:
 
     def addQuestion(self, title, tag, text):
         user = self.find()
+        topic = graph.find_one('Topic', 'topic', tag)
         post = Node(
-                "Post",
-                id=str(uuid.uuid4()),
+                "Question",
                 title=title,
                 text=text,
-                timestamp=timestamp(),
                 date=date()
         )
-        rel = Relationship(user, "PUBLISHED", post)
+        rel = Relationship(user, "ASKED", post)
+        rel2 = Relationship(post, "TAGGED", topic)
         graph.create(rel)
-
+        graph.create(rel2)
 
     def getPosts(self):
         query = """

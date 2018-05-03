@@ -5,7 +5,6 @@ app = Flask(__name__)
 
 @app.route('/', methods=['GET','POST'])
 def index():
-    #TODO: Richard
     if 'username' in session:
         # A user has already logged on
         return redirect(url_for('profile', name=session['username']))
@@ -43,14 +42,12 @@ def index():
                 else:
                     flash('You fucked it') #lol, subject to change :P
         return render_template('index.html') #if just a page get, then will return this page
-        #Look up how flask flashing works to give user certain feedback
-        #Edit the index html to make use of input groups
 
 @app.route('/p/<name>', methods=['GET','POST'])
 def profile(name):
     if request.method == 'POST':
         print("hi")
-    return render_template('profile.html', me = [session['username'], "FULL"])
+    return render_template('profile.html', me = User(session['username']).getMe())
 
 @app.route('/s/<query>')
 def search(query):
@@ -69,8 +66,14 @@ def question(id):
     replies = [q1, q2, q3, q2, q2]
     return render_template('question.html', bookmarked = bookmarked, question=mainQ, replies = replies, noPosts=len(replies), me = User(session['username']).getMe())
 
-@app.route('/addQ')
+@app.route('/addQ', methods=['GET','POST'])
 def newquestion():
+    if request.method == 'POST':
+        if not len(request.form['textTitl']) == 0:
+            if not len(request.form['textArea']) == 0:
+                if not User(session['username']).findT(request.form['textTitl']): #Checks if title is unique
+                    User(session['username']).addQuestion(request.form['textTitl'], request.form['topicSelect'], request.form['textArea'])
+                    return redirect(url_for('question', id=request.form['textTitl']))
     return render_template('newquestion.html', me = User(session['username']).getMe())
 
 @app.route('/logout')
