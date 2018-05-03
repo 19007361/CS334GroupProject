@@ -21,6 +21,9 @@ class User:
     def __init__(self, username):
         self.username = username
 
+    def getMe(self):
+        return [self.username, self.find()['fullName']]
+
     def find(self):
         user = graph.find_one('User', 'username', self.username)
         return user

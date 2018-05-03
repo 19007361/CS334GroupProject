@@ -7,7 +7,7 @@ def create_unique_constraint(label, property):
     query = query.format(label=label, property=property)
     graph.run(query)
 
-create_unique_constraint("user", "username")
-create_unique_constraint("question", "id")
-create_unique_constraint("topic", "id")
-create_unique_constraint("reply", "name")
+create_unique_constraint("User", "username")
+create_unique_constraint("Question", "id")
+create_unique_constraint("Topic", "topic")
+create_unique_constraint("Reply", "text")

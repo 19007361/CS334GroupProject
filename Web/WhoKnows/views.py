@@ -46,11 +46,10 @@ def profile(name):
 
 @app.route('/s/<query>')
 def search(query):
-    currentUser = ["Username5", "My cool Name"]
     r1 = ["Title1", "Text1", "Topic1", "ID1"]
     r2 = ["Title2", "Text2", "Topic2", "ID2"]
     results = [r1, r2]
-    return render_template('search.html', me=currentUser, results=results, noPosts=len(results), query=query)
+    return render_template('search.html', me=User(session['username']).getMe(), results=results, noPosts=len(results), query=query)
 
 @app.route('/q/<id>')
 def question(id):
@@ -59,16 +58,19 @@ def question(id):
     q1 = ["Username2", "Reply text blah blah blah", "32 Oct 1999", True]
     q2 = ["Username3", "Reply text Hoop blah blah", "32 Nov 1999", False]
     q3 = ["Username4", "Reply text blah Good blah", "32 Dec 1999", False]
-    replies = [q1, q2]
-    currentUser = ["Username5", "My cool Name"]
-    return render_template('question.html', bookmarked = bookmarked, question=mainQ, replies = replies, noPosts=len(replies), me = currentUser)
+    replies = [q1, q2, q3, q2, q2]
+    return render_template('question.html', bookmarked = bookmarked, question=mainQ, replies = replies, noPosts=len(replies), me = User(session['username']).getMe())
 
 @app.route('/addQ')
 def newquestion():
-    return render_template('newquestion.html', me = [session['username'], "FULL"])
+    return render_template('newquestion.html', me = User(session['username']).getMe())
 
 @app.route('/logout')
 def logout():
     session.pop('username', None)
     flash('Logged out.')
     return redirect(url_for('index'))
+
+@app.route('/searchH', methods=['POST'])
+def searchH():
+    return redirect(url_for('search', query=request.form['sq']))

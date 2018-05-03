@@ -1,8 +1,10 @@
 <li class="nav-item">
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Search" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-search"></i></button>
+  <form action="{{ url_for('searchH') }}" method="POST" name="searcher">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Search" name="sq">
+      <div class="input-group-append">
+        <button class="btn btn-success btn-outline-secondary"><i class="fa fa-search"></i></button>
+      </div>
     </div>
-  </div>
+  </form>
 </li>

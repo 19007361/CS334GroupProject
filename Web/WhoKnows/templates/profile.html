@@ -1,10 +1,12 @@
 {% extends 'layout.html' %}
 {% block body %}
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Profile Page</h1>
-    <p class="lead">This is a preview of the Navbar on all pages but the homepage.</p>
-  </div>
+<div class="row">
+<div class="col-6">
+<img class="img-responsive" src="{{ url_for('static', filename='perp1.png') }}">
+</div>
+<div class="col-6">
+<img class="img-responsive" src="{{ url_for('static', filename='perp2.png') }}">
+</div>
 </div>
 {% endblock %}
 {% block navleft %}
