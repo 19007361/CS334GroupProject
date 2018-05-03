@@ -14,30 +14,63 @@
 
     <style>
         .edit-mode-toggle {}
-        
-        .edit-mode-entering-toggle {}
     </style>
+    <script>
+        $(document).ready(function() {
+            //if user logged in:
+            //            $(".edit-mode-toggle").toggle();
+        });
+    </script>
 </head>
 
 <body>
     <div class="container-fluid">
+        <header class="edit-mode-toggle">
+            <!--  style="display:none" -->
+            <h5>Users that want to follow you:</h5>
+            <p style="display:inline">User1</p> <button>Accept</button>
+            <p style="display:inline">User2</p> <button>Accept</button>
+            <p style="display:inline">User3</p> <button>Accept</button>
+        </header>
+        <br>
         <div class="row">
             <div class="col-sm-4">
-                <img src="../../images/default_pic.gif" width="150px" alt="default"><br>
-                <h1 id="profile_name" style="display: inline; text-transform: uppercase; ">Username</h1> <a href="#" style="display:none" class="edit-mode-toggle"><i class="fas fa-edit"></i></a> <br>
-                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <img src="../../images/default_pic.gif" width="100%" alt="default"> <a href="#" style="display:none" class="edit-mode-toggle"><i class="fas fa-edit"></i></a> <br>
+                <h1 id="profile_name" style="display: inline; text-transform: uppercase; font-size: 2em;">Username</h1> <a href="#" style="display:none" class="edit-mode-toggle"><i class="fas fa-edit"></i></a> <br>
+                <div style="display:none"><input type="text"> <input type="submit"> <br></div>
                 <h4 style="display: inline">User's Name</h4> <a href="#" style="display:none"><i class="fas fa-edit edit-mode-toggle"></i></a> <br>
-                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <div style="display:none"><input type="text"> <input type="submit"> <br></div>
                 <h5 style="display: inline">Bio:</h5> <a href="#" style="display:none"><i class="fas fa-edit edit-mode-toggle"></i></a> <br>
-                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <div style="display:none"><input type="text"> <input type="submit"> <br></div>
                 <p style="display:inline">This is the bio of the user</p> <a href="#" style="display:none"><i class="fas fa-edit edit-mode-toggle"></i></a> <br>
-                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <div style="display:none"><input type="text"> <input type="submit"> <br></div>
                 <span>0</span> upvotes
+                <div class="edit-mode-toggle">
+                    <h5>My Bookmarked Questions</h5>
+                    <a href="#">
+                        How many roads must a man walk down before he becomes a man?
+                    </a> <br>
+                    <a href="#">
+                        How many seas must a white dove sail, before it sleeps in the sand?
+                    </a>
+                </div>
+                <div class="edit-mode-toggle" style="display:none">
+                    <h5>Password reset</h5><a href="#"><i class="fas fa-edit"></i></a> <br>
+                </div>
+                <form style="display:none">
+                    <h6>Enter old password:</h6>
+                    <input type="password">
+                    <h6>Enter new password:</h6>
+                    <input type="password">
+                    <h6>Confirm new password:</h6>
+                    <input type="password">
+                    <input type="submit">
+                </form>
             </div>
             <div class="col-sm-8">
                 <main class="mainbody">
                     <h3 style="display: inline">Followers</h3>
-                    <button style="float:right" class="edit-mode-toggle">Follow</button> <br>
+                    <button style="float:right" class="edit-mode-toggle">Follow this user</button> <br>
                     <img src="../../images/default_pic.gif" alt="default" width="100px">
                     <span>User1</span>
                     <button class="edit-mode-toggle">Follow</button>
@@ -55,25 +88,115 @@
                     <button class="edit-mode-toggle">Follow</button>
                     <div class="edit-mode-toggle">
                         <h3>My Top Questions</h3>
-                        <h5>Are you experienced?</h5>
-                        <h5>What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
-                        <h5>Can you hear me, Major Tom?</h5>
+                        <a href="">
+                            <h5>Are you experienced?</h5>
+                        </a>
+                        <a href="">
+                            <h5>What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+                        </a>
+                        <a href="">
+                            <h5>Can you hear me, Major Tom?</h5>
+                        </a>
 
                         <h3>My Top Answers</h3>
-                        <h5>Is there a God?</h5>
-                        <p>Only God knows.</p>
-                        <h5>What's love got to do with it?</h5>
-                        <p>What's love, but a second-hand emotion.</p>
-                        <h5>Is this the real life? Is this just fantasy?</h5>
-                        <p>Caught in a landslide, no escape from reality.</p>
+                        <a href="">
+                            <h5>Is there a God?</h5>
+                        </a>
+                        <a href="">
+                            <p>Only God knows.</p>
+                        </a>
+                        <a href="">
+                            <h5>What's love got to do with it?</h5>
+                        </a>
+                        <a href="">
+                            <p>What's love, but a second-hand emotion.</p>
+                        </a>
+                        <a href="">
+                            <h5>Is this the real life? Is this just fantasy?</h5>
+                        </a>
+                        <a href="">
+                            <p>Caught in a landslide, no escape from reality.</p>
+                        </a>
                     </div>
-                    <div class="edit-mode-toggle">
-                        <!-- style="display:none" -->
+                    <div class="edit-mode-toggle" style="display:none">
+                        <h3>
+                            All My Questions
+                        </h3>
+                        <a href="">
+                            <h5>Are you experienced?</h5>
+                        </a>
+                        <a href="">
+                            <h5>What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+                        </a>
+                        <a href="">
+                            <h5>Can you hear me, Major Tom?</h5>
+                        </a>
+                        <a href="">
+                            <h5>Annie are you okay?</h5>
+                        </a>
+                        <a href="">
+                            <h5>What's going on?</h5>
+                        </a>
+                        <h3>All My Answers</h3>
+                        <a href="">
+                            <h5>Is there a God?</h5>
+                        </a>
+                        <a href="">
+                            <p>Only God knows.</p>
+                        </a>
+                        <a href="">
+                            <h5>What's love got to do with it?</h5>
+                        </a>
+                        <a href="">
+                            <p>What's love, but a second-hand emotion.</p>
+                        </a>
+                        <a href="">
+                            <h5>Is this the real life? Is this just fantasy?</h5>
+                        </a>
+                        <a href="">
+                            <p>Caught in a landslide, no escape from reality.</p>
+                        </a>
+                        <a href="">
+                            <h5>What is love?</h5>
+                        </a>
+                        <a href="">
+                            <p>Baby don't hurt me, don't hurt me, no more.</p>
+                        </a>
+                        <a href="">
+                            <h5>What's the story?</h5>
+                        </a>
+                        <a href="">
+                            <p>Morning glory.</p>
+                        </a>
+                    </div>
 
-                    </div>
                 </main>
             </div>
         </div>
+        <footer class="edit-mode-toggle" style="display:none">
+            <h5>Suggestions of whom'st'd've'll to follow</h5>
+            <img src="../../images/default_pic.gif" alt="default" width="100px">
+            <span>User1</span>
+            <button class="edit-mode-toggle">Follow</button>
+            <img src="../../images/default_pic.gif" alt="default" width="100px">
+            <span>User2</span>
+            <button class="edit-mode-toggle">Follow</button>
+            <img src="../../images/default_pic.gif" alt="default" width="100px">
+            <span>User3</span>
+            <button class="edit-mode-toggle">Follow</button>
+            <img src="../../images/default_pic.gif" alt="default" width="100px">
+            <span>User4</span>
+            <button class="edit-mode-toggle">Follow</button>
+            <img src="../../images/default_pic.gif" alt="default" width="100px">
+            <span>User5</span>
+            <button class="edit-mode-toggle">Follow</button>
+            <h5>Topic suggestions</h5>
+            <p style="display:inline">Science</p> <button>Follow</button>
+            <p style="display:inline">Religion</p> <button>Follow</button>
+            <p style="display:inline">Politics</p> <button>Follow</button>
+            <p style="display:inline">Entertainment</p> <button>Follow</button>
+
+        </footer>
     </div>
 </body>
 
