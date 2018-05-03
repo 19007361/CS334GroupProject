@@ -10,6 +10,7 @@
         {% else %}
         <button type="button" class="btn btn-outline-primary float-right" data-toggle="button" title="Bookmark"><i class="fa fa-bookmark"></i></button>
         {% endif %}
+
         <div class="row">
           <div class="">
               <img src="{{ url_for('static', filename='Users/'+question[2]+'.png') }}" width="80" height="80" class="rounded-circle img-fluid" alt="">
@@ -19,6 +20,7 @@
             <p>{{ question[1]}}</p>
             By: <a href="/p/{{question[2]}}">{{ question[2]}}</a> {{question[3]}}
           </div>
+          <span class="float-right text-muted"><i>{{question[4]}}</i></span>
         </div>
       </div>
 
@@ -96,7 +98,7 @@
     </div>
   </div>
 </li>
-{% endblock %} 
+{% endblock %}
 {% block navright %}
   {% include 'commonNav.html'%}
 {% endblock %}
