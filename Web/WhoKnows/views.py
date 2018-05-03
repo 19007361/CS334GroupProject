@@ -14,26 +14,34 @@ def index():
             if "loginUser" in request.form:
                 #Login
                 username = request.form['loginUN']
+                username = username.lower()
                 passw = request.form['loginPass']
                 if User(username).checkPass(passw):
                     session['username']=username
                     return redirect(url_for('profile', name=username)) #redrects to profile page
                 else:
-                    flash("GET REKT!")
+                    flash('GET REKT!')
             else:
                 #Registration
-                if request.form['p1'] == request.form['p2']:
-                    #pass same
-                    username = request.form['username']
-                    name = request.form['name']
-                    passw = request.form['p1']
-                    email = request.form['email']
-
-                    if User(username).addUser(passw, email, name):
-                        session['username'] = username
-                        return redirect(url_for('profile', name=username)) #redrects to profile page
+                passValid = request.form['p1']
+                userValid = ((request.form['username']).replace(" ", "")).lower()
+                if (any(num.isdigit() for num in passValid) and any(char.isupper() for char in passValid) and userValid.isalnum() and len(passValid) >= 8):
+                    if request.form['p1'] == request.form['p2']:
+                        #pass same
+                        username = userValid
+                        name = request.form['name']
+                        passw = request.form['p1']
+                        email = request.form['email']
+                        #^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$ email regex
+                        if User(username).addUser(passw, email, name):
+                            session['username'] = username
+                            return redirect(url_for('profile', name=username)) #redrects to profile page
+                        else:
+                            flash('Somethang funk-a')
                     else:
-                        flash("Somethang funk-a")
+                        flash('Nice Try')
+                else:
+                    flash('You fucked it') #lol, subject to change :P
         return render_template('index.html') #if just a page get, then will return this page
         #Look up how flask flashing works to give user certain feedback
         #Edit the index html to make use of input groups

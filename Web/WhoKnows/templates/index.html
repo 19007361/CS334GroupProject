@@ -1,5 +1,17 @@
 {% extends 'layout.html' %}
 {% block body %}
+{% with messages = get_flashed_messages() %}
+        {% if messages %}
+              {% for message in messages %}
+                <div class="alert alert-danger alert-dismissible fade show" role="alert">
+                  {{message}}
+                  <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                  <span aria-hidden="true">&times;</span>
+                  </button>
+                </div>
+              {% endfor %}
+        {% endif %}
+     {% endwith %}
 <div class="container-fluid">
 
   <div class="row">
@@ -20,7 +32,7 @@
               <!-- Username -->
               <label class="control-label" for="username">Username</label>
               <div class="controls">
-                <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+                <input type="text" id="username" name="username" placeholder="" class="input-xlarge" pattern="[a-zA-Z0-9]" title="The username must be alphanumeric and contain no whitespaces">
               </div>
             </div>
             <div class="control-group">
@@ -35,7 +47,7 @@
               <!-- E-mail -->
               <label class="control-label" for="email">E-mail</label>
               <div class="controls">
-                <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+                <input type="email" id="email" name="email" placeholder="" class="input-xlarge">
 
               </div>
             </div>
@@ -44,7 +56,7 @@
               <!-- Password-->
               <label class="control-label" for="password">Password</label>
               <div class="controls">
-                <input type="password" id="password" name="p1" placeholder="" class="input-xlarge">
+                <input type="password" id="password" name="p1" placeholder="" class="input-xlarge"  pattern="(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9\W]{8,}"  title="Your password must contain at least 1 uppercase character, 1 digit and 8 characters">
 
               </div>
             </div>
