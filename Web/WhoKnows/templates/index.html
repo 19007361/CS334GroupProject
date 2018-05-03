@@ -1,22 +1,105 @@
 {% extends 'layout.html' %}
 {% block body %}
-<div class="jumbotron jumbotron-fluid">
-  <div class="container">
-    <h1 class="display-4">Home Page</h1>
-    <p class="lead">This is a preview of the Navbar for the homepage</p>
+<div class="container-fluid">
+
+  <div class="row">
+    <div class="col-sm-12 col-md-8">
+      <!--Large Logo on left maybe add some writing still not sure what to write -->
+      <div class="row justify-content-center align-items-center">
+        <!-- FUlllogo -->
+        <img src="../static/fullLogo.png" style="width:328px;height:328px;" alt="default">
+      </div>
+    </div>
+    <div class="col-sm-12 col-md-4">
+      <main class="mainbody">
+        <!-- Contains all the reigstraion details-->
+        <form class="form-horizontal" action="{{ url_for('index') }}" method="POST">
+          <fieldset>
+            <legend>Registration:</legend>
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label" for="username">Username</label>
+              <div class="controls">
+                <input type="text" id="username" name="username" placeholder="" class="input-xlarge">
+              </div>
+            </div>
+            <div class="control-group">
+              <!-- Username -->
+              <label class="control-label" for="name">Full Name</label>
+              <div class="controls">
+                <input type="text" id="name" name="name" placeholder="" class="input-xlarge">
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- E-mail -->
+              <label class="control-label" for="email">E-mail</label>
+              <div class="controls">
+                <input type="text" id="email" name="email" placeholder="" class="input-xlarge">
+
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Password-->
+              <label class="control-label" for="password">Password</label>
+              <div class="controls">
+                <input type="password" id="password" name="p1" placeholder="" class="input-xlarge">
+
+              </div>
+            </div>
+
+            <div class="control-group">
+              <!-- Password -->
+              <label class="control-label" for="password_confirm">Password (Confirm)</label>
+              <div class="controls">
+                <input type="password" id="password_confirm" name="p2" placeholder="" class="input-xlarge">
+
+              </div>
+            </div>
+            <legend>Topic Selection:</legend>
+
+            <div class="control-group">
+              <!-- bikes -->
+              <input type="checkbox" name="topic" value="Bike"> bikes<br>
+            </div>
+
+            <div class="control-group">
+              <!-- History -->
+              <input type="checkbox" name="topic" value="History"> History<br>
+            </div>
+
+            <div class="control-group">
+              <!-- RW334 memo -->
+              <input type="checkbox" name="topic" value="RW334 memo"> RW334 memo<br>
+            </div>
+
+            <div class="control-group">
+              <!-- Button -->
+              <div class="controls">
+                <button class="btn btn-success" name="registerUser">Sign me up!</button>
+              </div>
+            </div>
+          </fieldset>
+        </form>
+      </main>
+    </div>
   </div>
 </div>
 {% endblock %}
 {% block navleft %} {% endblock %}
 {% block navright %}
 <li class="nav-item">
-  <div class="input-group">
-    <input type="text" class="form-control" placeholder="Username" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <input type="password" class="form-control" placeholder="Password" aria-label="Recipient's username" aria-describedby="basic-addon2">
-    <div class="input-group-append">
-      <button class="btn btn-outline-secondary" type="button"><i class="fa fa-angle-right"></i></button>
+  <form action="{{ url_for('index') }}" method="POST" name="log">
+    <div class="input-group">
+      <input type="text" class="form-control" placeholder="Username" name="loginUN">
+      <input type="password" class="form-control" placeholder="Password" name="loginPass">
+      <div class="input-group-append">
+        <button class="btn btn-success btn-outline-secondary" name="loginUser"><i class="fa fa-angle-right"></i></button>
+      </div>
     </div>
-  </div>
+  </form>
+
 </li>
-{% endblock %} 
+{% endblock %}
 {% block title %} Who Knows? - Quora knockoff {% endblock %}
