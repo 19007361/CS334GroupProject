@@ -2,64 +2,79 @@
 <!-- JASON GEORGE AND CHRISTIAAN MEYER -->
 <html>
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Profile</title>
-  <script src="../static/bootstrap.js"></script>
-  <script src="../static/jquery-3.3.1.js"></script>
-  <link ref="stylesheet" type="text/css" href="../static/bootstrap.css">
-  <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link ref="stylesheet" type="text/css" href="../static/main.css">
-  <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Profile</title>
+    <script src="../static/bootstrap.js"></script>
+    <script src="../static/jquery-3.3.1.js"></script>
+    <link ref="stylesheet" type="text/css" href="../static/bootstrap.css">
+    <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+    <link ref="stylesheet" type="text/css" href="../static/main.css">
+    <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 
-  <style>
-    .edit-mode {
-      display: none !important;
-    }
-  </style>
+    <style>
+        .edit-mode-toggle {}
+        
+        .edit-mode-entering-toggle {}
+    </style>
 </head>
 
 <body>
-  <div class="container-fluid">
-    <div class="row">
-      <div class="col-sm-4">
-        <img src="../../images/default_pic.gif" width="150px" alt="default"><br>
-        <h1 id="profile_name" style="display: inline; text-transform: uppercase;">Username</h1> <a href="#"><i class="fas fa-edit edit-mode"></i></a> <br>
-        <h4 style="display: inline">User's Name</h4> <a href="#"><i class="fas fa-edit edit-mode"></i></a> <br>
-        <h5 style="display: inline">Bio:</h5> <a href="#"><i class="fas fa-edit edit-mode"></i></a> <br>
-        <p>This is the bio of the user</p>
-        <span>0</span> upvotes
-      </div>
-      <div class="col-sm-8">
-        <main class="mainbody">
-          <h3 style="display: inline">Followers</h3>
-          <button style="float:right">Follow</button> <br>
-          <img src="../../images/default_pic.gif" alt="default" width="100px">
-          <span>User1</span>
-          <button>Follow</button>
-          <img src="../../images/default_pic.gif" alt="default" width="100px">
-          <span>User2</span>
-          <button>Follow</button>
-          <img src="../../images/default_pic.gif" alt="default" width="100px">
-          <span>User3</span>
-          <button>Follow</button>
-          <img src="../../images/default_pic.gif" alt="default" width="100px">
-          <span>User4</span>
-          <button>Follow</button>
-          <img src="../../images/default_pic.gif" alt="default" width="100px">
-          <span>User5</span>
-          <button>Follow</button>
-          <h3>Questions</h3>
-          <h5>Is there a God?</h5>
-          <p>Only God knows.</p>
-          <h5>What's love got to do with it?</h5>
-          <p>What's love, but a second-hand emotion.</p>
-          <h5>Is this the real life? Is this just fantasy?</h5>
-          <p>Caught in a landslide, no escape from reality.</p>
-        </main>
-      </div>
+    <div class="container-fluid">
+        <div class="row">
+            <div class="col-sm-4">
+                <img src="../../images/default_pic.gif" width="150px" alt="default"><br>
+                <h1 id="profile_name" style="display: inline; text-transform: uppercase; ">Username</h1> <a href="#" style="display:none" class="edit-mode-toggle"><i class="fas fa-edit"></i></a> <br>
+                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <h4 style="display: inline">User's Name</h4> <a href="#" style="display:none"><i class="fas fa-edit edit-mode-toggle"></i></a> <br>
+                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <h5 style="display: inline">Bio:</h5> <a href="#" style="display:none"><i class="fas fa-edit edit-mode-toggle"></i></a> <br>
+                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <p style="display:inline">This is the bio of the user</p> <a href="#" style="display:none"><i class="fas fa-edit edit-mode-toggle"></i></a> <br>
+                <div class="edit-mode-entering-toggle" style="display:none"><input type="text"> <input type="submit"> <br></div>
+                <span>0</span> upvotes
+            </div>
+            <div class="col-sm-8">
+                <main class="mainbody">
+                    <h3 style="display: inline">Followers</h3>
+                    <button style="float:right" class="edit-mode-toggle">Follow</button> <br>
+                    <img src="../../images/default_pic.gif" alt="default" width="100px">
+                    <span>User1</span>
+                    <button class="edit-mode-toggle">Follow</button>
+                    <img src="../../images/default_pic.gif" alt="default" width="100px">
+                    <span>User2</span>
+                    <button class="edit-mode-toggle">Follow</button>
+                    <img src="../../images/default_pic.gif" alt="default" width="100px">
+                    <span>User3</span>
+                    <button class="edit-mode-toggle">Follow</button>
+                    <img src="../../images/default_pic.gif" alt="default" width="100px">
+                    <span>User4</span>
+                    <button class="edit-mode-toggle">Follow</button>
+                    <img src="../../images/default_pic.gif" alt="default" width="100px">
+                    <span>User5</span>
+                    <button class="edit-mode-toggle">Follow</button>
+                    <div class="edit-mode-toggle">
+                        <h3>My Top Questions</h3>
+                        <h5>Are you experienced?</h5>
+                        <h5>What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+                        <h5>Can you hear me, Major Tom?</h5>
+
+                        <h3>My Top Answers</h3>
+                        <h5>Is there a God?</h5>
+                        <p>Only God knows.</p>
+                        <h5>What's love got to do with it?</h5>
+                        <p>What's love, but a second-hand emotion.</p>
+                        <h5>Is this the real life? Is this just fantasy?</h5>
+                        <p>Caught in a landslide, no escape from reality.</p>
+                    </div>
+                    <div class="edit-mode-toggle">
+                        <!-- style="display:none" -->
+
+                    </div>
+                </main>
+            </div>
+        </div>
     </div>
-  </div>
 </body>
 
 </html>
