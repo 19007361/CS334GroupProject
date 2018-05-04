@@ -16,14 +16,16 @@ html {
 
 h3 {
   font-family: "Marcellus";
-  font-size: 6vw;
+  font-size: 1.4em; /*Changed from 6vw by JKG because font sizes were waaaaay too big*/
   color: #7D775C; }
 
 img {
   max-width: 100%;
   height: auto; }
 
-@media only screen and (min-width: 768px) {
+
+/*Commented out by JKG because it caused all he followers on the profile page to float to the right - Media quer*/
+/*@media only screen and (min-width: 768px) {
   aside {
     width: 49%;
     float: left; }
@@ -36,6 +38,8 @@ img {
     font-family: "Marcellus";
     font-size: 1.4em;
     color: #7D775C; } }
+
+    */
 body {
   font-family: "Reem Kufi";
   font-size: 100%;
@@ -54,4 +58,15 @@ a:hover, a:active {
   text-decoration: underline;
   color: #9685BA; }
 
+.card-group {
+  padding: 0px 10px 0px 10px;
+}
+
+.card {
+  padding: 0px 5px 0px 5px;
+}
+
+div.card-body ~ h3 {
+  font_size = 0.5em;
+}
 /*# sourceMappingURL=main.css.map */

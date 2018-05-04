@@ -10,7 +10,7 @@
   <script src="../static/bootstrap.js"></script>
   <link ref="stylesheet" type="text/css" href="../static/bootstrap.css">
   <link rel="stylesheet" href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
-  <link ref="stylesheet" type="text/css" href="../static/main.css">
+  <link rel="stylesheet" type="text/css" href="../static/main.css">
   <link rel="stylesheet" href="https://use.fontawesome.com/releases/v5.0.10/css/all.css">
 
   <style>
@@ -100,42 +100,7 @@
             <br>
 
 
-            <div class="edit-mode-toggle">
-              <h3>My Top Qs and As</h3>
 
-              <span class="d-block bg-dark text-white" align = "center">XYZ answered</span>
-              <a href="">
-                <h5>What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
-              </a>
-              <span class="d-block bg-dark text-white" align = "center">with</span>
-              <a href="">
-                Only God knows.
-              </a>
-              <a href="">
-                <h5>What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
-              </a>
-              <a href="">
-                Only God knows.
-              </a>
-              <a href="">
-                <small>(Is there a God?)</small>
-              </a> <br>
-              <a href="">
-                What's love, but a second-hand emotion.
-              </a>
-              <a href="">
-                <small>(What's love got to do with it?)</small>
-              </a> <br>
-              <a href="">
-                <h5>Can you hear me, Major Tom?</h5>
-              </a>
-              <a href="">
-                Caught in a landslide, no escape from reality.
-              </a>
-              <a href="">
-                <small>(Is this the real life? Is this just fantasy?)</small>
-              </a> <br>
-            </div>
             <div class="edit-mode-toggle" style="display:none">
               <h3>
                 All My Questions
@@ -191,31 +156,164 @@
           </main>
         </div>
       </div>
-      <footer class="edit-mode-toggle" style="display:none">
-        <h5>Suggestions of whom'st'd've'll to follow</h5>
-        <img src="../../images/default_pic.gif" alt="default" width="100px">
-        <span>User1</span>
-        <button class="edit-mode-toggle">Follow</button>
-        <img src="../../images/default_pic.gif" alt="default" width="100px">
-        <span>User2</span>
-        <button class="edit-mode-toggle">Follow</button>
-        <img src="../../images/default_pic.gif" alt="default" width="100px">
-        <span>User3</span>
-        <button class="edit-mode-toggle">Follow</button>
-        <img src="../../images/default_pic.gif" alt="default" width="100px">
-        <span>User4</span>
-        <button class="edit-mode-toggle">Follow</button>
-        <img src="../../images/default_pic.gif" alt="default" width="100px">
-        <span>User5</span>
-        <button class="edit-mode-toggle">Follow</button>
-        <h5>Topic suggestions</h5>
-        <p style="display:inline">Science</p> <button>Follow</button>
-        <p style="display:inline">Religion</p> <button>Follow</button>
-        <p style="display:inline">Politics</p> <button>Follow</button>
-        <p style="display:inline">Entertainment</p> <button>Follow</button>
+      <div class="row">
+        <div class="edit-mode-toggle">
+          <h3>My Top 10 Qs and As</h3>
+          <!-- Following section on Bootstrap cards was adapted from https://getbootstrap.com/docs/4.0/components/card/#card-layout -->
 
-      </footer>
+          <!-- Bootstrap card elements do not allow for the cards to be column-limited. Therefore, in order to arrive at the desired goal, one must manually insert the 4 columns into 2 rows of 4 and 1 row of 2 columns - they merely stack into one row  -->
+
+
+          <div class="card-group">
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title">What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+                <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+                <p class="card-text">Only God knows.</p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+
+
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title">What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+                <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+                <p class="card-text">Only God knows.</p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+
+            <div class="card card-inverse card-success text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title">Is there a God?</h5>
+                <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+                <p class="card-text">Only God knows.</p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+
+            <div class="card card-inverse card-success text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title">Is this the real life, is this just fantasy?</h5>
+                <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+                <p class="card-text">Caught in a landslide, no escape from reality</p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="card-group">
+          <div class="card text-center" style="">
+            <div class="card-body">
+              <h5 class="card-title">What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+              <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+              <p class="card-text">Only God knows.</p>
+              <a href="#" class="card-link">See the full question</a> <br>
+              <a href="#" class="card-link">See the user who answered the question</a>
+            </div>
+          </div>
+
+
+
+          <div class="card text-center" style="">
+            <div class="card-body">
+              <h5 class="card-title">What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+              <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+              <p class="card-text">Only God knows.</p>
+              <a href="#" class="card-link">See the full question</a> <br>
+              <a href="#" class="card-link">See the user who answered the question</a>
+            </div>
+          </div>
+
+
+          <div class="card card-inverse card-success text-center" style="">
+            <div class="card-body">
+              <h5 class="card-title">Is there a God?</h5>
+              <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+              <p class="card-text">Only God knows.</p>
+              <a href="#" class="card-link">See the full question</a> <br>
+              <a href="#" class="card-link">See the user who answered the question</a>
+            </div>
+          </div>
+
+
+          <div class="card card-inverse card-success text-center" style="">
+            <div class="card-body">
+              <h5 class="card-title">Is this the real life, is this just fantasy?</h5>
+              <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+              <p class="card-text">Caught in a landslide, no escape from reality</p>
+              <a href="#" class="card-link">See the full question</a> <br>
+              <a href="#" class="card-link">See the user who answered the question</a>
+            </div>
+          </div>
+
+        </div>
+      </div>
+
+      <div class="row">
+        <div class="card-group">
+          <div class="card text-center" style="">
+            <div class="card-body">
+              <h5 class="card-title">What would you say if I sang out a tune, would you stand there or walk out on me?</h5>
+              <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+              <p class="card-text">Only God knows.</p>
+              <a href="#" class="card-link">See the full question</a> <br>
+              <a href="#" class="card-link">See the user who answered the question</a>
+            </div>
+          </div>
+
+
+          <div class="card card-inverse card-success text-center" style="">
+            <div class="card-body">
+              <h5 class="card-title">Is there a God?</h5>
+              <h6 class="card-subtitle mb-2 text-muted">XYZ answered</h6>
+              <p class="card-text">Only God knows.</p>
+              <a href="#" class="card-link">See the full question</a> <br>
+              <a href="#" class="card-link">See the user who answered the question</a>
+            </div>
+          </div>
+        </div>
+      </div>
     </div>
-  </body>
 
-  </html>
+
+    <footer class="edit-mode-toggle" style="display:none">
+      <h5>Suggestions of whom'st'd've'll to follow</h5>
+      <img src="../../images/default_pic.gif" alt="default" width="100px">
+      <span>User1</span>
+      <button class="edit-mode-toggle">Follow</button>
+      <img src="../../images/default_pic.gif" alt="default" width="100px">
+      <span>User2</span>
+      <button class="edit-mode-toggle">Follow</button>
+      <img src="../../images/default_pic.gif" alt="default" width="100px">
+      <span>User3</span>
+      <button class="edit-mode-toggle">Follow</button>
+      <img src="../../images/default_pic.gif" alt="default" width="100px">
+      <span>User4</span>
+      <button class="edit-mode-toggle">Follow</button>
+      <img src="../../images/default_pic.gif" alt="default" width="100px">
+      <span>User5</span>
+      <button class="edit-mode-toggle">Follow</button>
+      <h5>Topic suggestions</h5>
+      <p style="display:inline">Science</p> <button>Follow</button>
+      <p style="display:inline">Religion</p> <button>Follow</button>
+      <p style="display:inline">Politics</p> <button>Follow</button>
+      <p style="display:inline">Entertainment</p> <button>Follow</button>
+
+    </footer>
+  </div>
+</body>
+
+</html>
