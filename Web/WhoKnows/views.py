@@ -54,30 +54,40 @@ def search(query):
     results = []
     tag, text, n = User(session['username']).getSearch(query)
     for i in range(n):
-        r = [text[i][0], text[i][1], tag[i], text[i][0]]
+        r = [text[i][0], text[i][1], tag[i], text[i][2]]
         results.append(r)
     return render_template('search.html', me=User(session['username']).getMe(), results=results, noPosts=len(results), query=query)
 
-@app.route('/q/<id>')
+@app.route('/q/<id>', methods=['GET','POST'])
 def question(id):
-    Qbody, user, tag = User(session['username']).getQuestion(id)
-    mainQ = [Qbody['title'], Qbody['text'], user, Qbody['date'], tag]
-    bookmarked = False
-    #mainQ = ["This is the title", "This is the question", "Username5", "01 Jan 2018", "Topic1"]
-    q1 = ["Username2", "Reply text blah blah blah", "32 Oct 1999", True]
-    q2 = ["Username3", "Reply text Hoop blah blah", "32 Nov 1999", False]
-    q3 = ["Username4", "Reply text blah Good blah", "32 Dec 1999", False]
-    replies = [q1, q2, q3, q2, q2]
+    if request.method == 'POST':
+        if 'textF' in request.form:
+            if not len(request.form['textF']) == 0:
+                User(session['username']).addReply(id, request.form['textF'])
+        elif 'uv' in request.form:
+            User(session['username']).upvote(request.form['uv'])
+        elif 'dv' in request.form:
+            User(session['username']).downvote(request.form['dv'])
+        elif 'ub' in request.form:
+            User(session['username']).noBook(request.form['ub'])
+        elif 'b' in request.form:
+            User(session['username']).bookmark(request.form['b'])
+
+    Qbody, user, tag, bookmarked = User(session['username']).getQuestion(id)
+    mainQ = [Qbody['title'], Qbody['text'], user, Qbody['date'], tag, id]
+    replies = []
+    poster, ld, liked, c = User(session['username']).getReplies(id)
+    for i in range(c):
+        replies.append([poster[i], ld[i][1], ld[i][0], liked[i], ld[i][2]])
     return render_template('question.html', bookmarked = bookmarked, question=mainQ, replies = replies, noPosts=len(replies), me = User(session['username']).getMe())
 
 @app.route('/addQ', methods=['GET','POST'])
 def newquestion():
     if request.method == 'POST':
-        if not len(request.form['textTitl']) == 0:
-            if not len(request.form['textArea']) == 0:
-                if not User(session['username']).findT(request.form['textTitl']): #Checks if title is unique
+            if not len(request.form['textTitl']) == 0:
+                if not len(request.form['textArea']) == 0:
                     User(session['username']).addQuestion(request.form['textTitl'], request.form['topicSelect'], request.form['textArea'])
-                    return redirect(url_for('question', id=request.form['textTitl']))
+                    return redirect(url_for('question', id=User(session['username']).findT(request.form['textTitl'])['id']))
     return render_template('newquestion.html', me = User(session['username']).getMe())
 
 @app.route('/logout')

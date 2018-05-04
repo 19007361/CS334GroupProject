@@ -8,6 +8,6 @@ def create_unique_constraint(label, property):
     graph.run(query)
 
 create_unique_constraint("User", "username")
-create_unique_constraint("Question", "title")
+create_unique_constraint("Question", "id")
 create_unique_constraint("Topic", "topic")
-create_unique_constraint("Reply", "text")
+create_unique_constraint("Reply", "id")

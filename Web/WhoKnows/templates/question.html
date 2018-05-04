@@ -5,12 +5,13 @@
 
       <!--The question being viewed here-->
       <div class="card-header">
+        <form action="{{ url_for('question', id=question[5]) }}" method="POST" name="postUV">
         {% if bookmarked == True %}
-        <button type="button" class="btn btn-outline-primary float-right active" data-toggle="button" title="Bookmark"><i class="fa fa-bookmark"></i></button>
+        <button type="submit" class="btn btn-outline-primary float-right active" name="ub" value="{{question[5]}}" title="Bookmark"><i class="fa fa-bookmark"></i></button>
         {% else %}
-        <button type="button" class="btn btn-outline-primary float-right" data-toggle="button" title="Bookmark"><i class="fa fa-bookmark"></i></button>
+        <button type="submit" class="btn btn-outline-primary float-right" name="b" value="{{question[5]}}" title="Bookmark"><i class="fa fa-bookmark"></i></button>
         {% endif %}
-
+      </form>
         <div class="row">
           <div class="">
               <img src="{{ url_for('static', filename='Users/'+question[2]+'.png') }}" width="80" height="80" class="rounded-circle img-fluid" alt="">
@@ -49,13 +50,15 @@
                   {{ replies[i][1]}}
                 </div>
                 <!--Holds the upvote and downvote buttons-->
+                <form action="{{ url_for('question', id=question[5]) }}" method="POST" name="postUV">
                 <div class="action">
                   {% if replies[i][3] == True%}
-                  <button type="button" class="btn btn-outline-success float-right active" data-toggle="button" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  <button type="submit" class="btn btn-outline-success float-right active" name="dv" value="{{replies[i][4]}}" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
                   {% else %}
-                  <button type="button" class="btn btn-outline-success float-right" data-toggle="button" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  <button type="submit" class="btn btn-outline-success float-right" name="uv" value="{{replies[i][4]}}" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
                   {% endif %}
                 </div>
+                </form>
               </div>
             </div>
           </li>
@@ -63,6 +66,7 @@
 
           <!--Enter new answer-->
           <li class="list-group-item">
+            <form action="{{ url_for('question', id=question[5]) }}" method="POST" name="postReply">
             <div class="row">
 
               <!--Div to hold the profile picture of the user-->
@@ -76,14 +80,15 @@
                     By: <a href="/p/{{me[0]}}">You</a>
                   </div>
                 </div>
-                <textarea class="form-control" placeholder="Insert comment here" rows="4"></textarea>
+                <textarea class="form-control" placeholder="Insert comment here" rows="4" name="textF"></textarea>
 
                 <!--Holds the upvote and downvote buttons-->
-                <div class="action">
-                  <button type="button" class="btn btn-success float-right" title="Post my response"><i class="fas fa-reply"></i> Post my response</button>
-                </div>
+
+                  <button class="btn btn-success float-right" name="addReply" title="Post my response"><i class="fas fa-reply"></i> Post my response</button>
+
               </div>
             </div>
+            </form>
           </li>
         </ul>
       </div>
