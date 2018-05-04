@@ -51,15 +51,20 @@ def profile(name):
 
 @app.route('/s/<query>')
 def search(query):
-    r1 = ["Title1", "Text1", "Topic1", "ID1"]
-    r2 = ["Title2", "Text2", "Topic2", "ID2"]
-    results = [r1, r2]
+    results = []
+    tag, text, n = User(session['username']).getSearch(query)
+    for i in range(n):
+        r = [text[i][0], text[i][1], tag[i], text[i][0]]
+        results.append(r)
+        
     return render_template('search.html', me=User(session['username']).getMe(), results=results, noPosts=len(results), query=query)
 
 @app.route('/q/<id>')
 def question(id):
+    Qbody, user, tag = User(session['username']).getQuestion(id)
+    mainQ = [Qbody['title'], Qbody['text'], user, Qbody['date'], tag]
     bookmarked = False
-    mainQ = ["This is the title", "This is the question", "Username5", "01 Jan 2018", "Topic1"]
+    #mainQ = ["This is the title", "This is the question", "Username5", "01 Jan 2018", "Topic1"]
     q1 = ["Username2", "Reply text blah blah blah", "32 Oct 1999", True]
     q2 = ["Username3", "Reply text Hoop blah blah", "32 Nov 1999", False]
     q3 = ["Username4", "Reply text blah Good blah", "32 Dec 1999", False]

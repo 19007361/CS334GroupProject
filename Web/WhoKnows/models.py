@@ -72,6 +72,28 @@ class User:
         """
         return graph.run(query, username=self.username)
 
+    def getQuestion(self, quer):
+        whoAsked = "MATCH(n:User)-[:ASKED]->(m:Question) WHERE m.title = {quer} RETURN n.username"
+        tagged = "MATCH(n:Topic)<-[:TAGGED]-(m:Question) WHERE m.title = {quer} RETURN n.topic"
+        user = graph.run(whoAsked, quer=quer).evaluate()
+        tag = graph.run(tagged, quer = quer).evaluate()
+        quest = self.findT(quer)
+        return quest, user, tag
+
+    def getSearch(self, quer):
+        tagged = "MATCH(n:Topic)<-[:TAGGED]-(m:Question) WHERE m.title = {quer} RETURN n.topic"
+        res = "MATCH(n:Question) WHERE toLower(n.title) CONTAINS toLower({quer}) RETURN n ORDER BY n.date"
+        tags = []
+        ld = []
+        c = 0
+        for record in graph.run(res, quer=quer):
+            a = [record['n']['title'], record['n']['text']]
+            ld.append(a)
+            tags.append(graph.run(tagged, quer = record['n']['title']).evaluate())
+            c += 1
+        return tags, ld, c
+
+
     def upvoteQuestion(self, qID):
         user = self.find()
         post = graph.find_one("Post", "id", qID)
