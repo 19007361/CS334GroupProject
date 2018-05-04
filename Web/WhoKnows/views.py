@@ -56,7 +56,6 @@ def search(query):
     for i in range(n):
         r = [text[i][0], text[i][1], tag[i], text[i][0]]
         results.append(r)
-        
     return render_template('search.html', me=User(session['username']).getMe(), results=results, noPosts=len(results), query=query)
 
 @app.route('/q/<id>')
