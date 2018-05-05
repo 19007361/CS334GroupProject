@@ -36,12 +36,19 @@ class User:
         user = graph.find_one('Question', 'id', term)
         return user
 
-    def addUser(self, password, email, name):
+    def addUser(self, password, email, name, cbs):
         if not self.find():
             #move file
             shutil.copy(os.path.dirname(__file__)+"/static/defaultProf.png", os.path.dirname(__file__)+"/static/Users/"+self.username+".png")
             user = Node("User", username=self.username, password=bcrypt.encrypt(password), email=email, fullName=name)
             graph.create(user)
+
+            topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
+            for i in range(len(cbs)):
+                if cbs[i]:
+                    topic = graph.find_one('Topic', 'topic', topics[i])
+                    graph.create(Relationship(user, "LIKES", topic))
+
             return True
         else:
             return False

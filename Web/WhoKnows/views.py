@@ -10,6 +10,7 @@ def index():
         return redirect(url_for('profile', name=session['username']))
     else:
         if request.method == 'POST':
+            print(request.form)
             if "loginUser" in request.form:
                 #Login
                 username = request.form['loginUN']
@@ -19,7 +20,7 @@ def index():
                     session['username']=username
                     return redirect(url_for('profile', name=username)) #redrects to profile page
                 else:
-                    flash('GET REKT!')
+                    flash('Your username and or password was incorrect or does not exist')
             else:
                 #Registration
                 passValid = request.form['p1']
@@ -31,16 +32,18 @@ def index():
                         name = request.form['name']
                         passw = request.form['p1']
                         email = request.form['email']
+                        cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
+                        print(cbs)
                         #^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$ email regex
-                        if User(username).addUser(passw, email, name):
+                        if User(username).addUser(passw, email, name, cbs):
                             session['username'] = username
                             return redirect(url_for('profile', name=username)) #redrects to profile page
                         else:
-                            flash('Somethang funk-a')
+                            flash('This user already exists')
                     else:
-                        flash('Nice Try')
+                        flash('Passwords do not match')
                 else:
-                    flash('You fucked it') #lol, subject to change :P
+                    flash('Password of incorrect format or username is not alphanumeric')
         return render_template('index.html') #if just a page get, then will return this page
 
 @app.route('/p/<name>', methods=['GET','POST'])
