@@ -53,9 +53,9 @@
                 <form action="{{ url_for('question', id=question[5]) }}" method="POST" name="postUV">
                 <div class="action">
                   {% if replies[i][3] == True%}
-                  <button type="submit" class="btn btn-outline-success float-right active" name="dv" value="{{replies[i][4]}}" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  <button type="submit" class="btn btn-outline-success float-right active" name="dv" value="{{replies[i][4]}}" title="Upvote"><span class="badge badge-light">{{replies[i][5]}}</span> <i class="fas fa-thumbs-up"></i> Upvote </button>
                   {% else %}
-                  <button type="submit" class="btn btn-outline-success float-right" name="uv" value="{{replies[i][4]}}" title="Upvote"><i class="fas fa-thumbs-up"></i> Upvote</button>
+                  <button type="submit" class="btn btn-outline-success float-right" name="uv" value="{{replies[i][4]}}" title="Upvote"> <span class="badge badge-success">{{replies[i][5]}}</span> <i class="fas fa-thumbs-up"></i> Upvote</button>
                   {% endif %}
                 </div>
                 </form>

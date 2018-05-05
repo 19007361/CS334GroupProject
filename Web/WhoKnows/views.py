@@ -76,9 +76,9 @@ def question(id):
     Qbody, user, tag, bookmarked = User(session['username']).getQuestion(id)
     mainQ = [Qbody['title'], Qbody['text'], user, Qbody['date'], tag, id]
     replies = []
-    poster, ld, liked, c = User(session['username']).getReplies(id)
+    poster, ld, liked, c, cc = User(session['username']).getReplies(id)
     for i in range(c):
-        replies.append([poster[i], ld[i][1], ld[i][0], liked[i], ld[i][2]])
+        replies.append([poster[i], ld[i][1], ld[i][0], liked[i], ld[i][2], cc[i]])
     return render_template('question.html', bookmarked = bookmarked, question=mainQ, replies = replies, noPosts=len(replies), me = User(session['username']).getMe())
 
 @app.route('/addQ', methods=['GET','POST'])

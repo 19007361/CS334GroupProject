@@ -123,17 +123,21 @@ class User:
         return tags, ld, c
 
     def getReplies(self, quest):
-        res = "MATCH(n:Reply)-[:REPLYTO]->(m:Question) WHERE m.id = {quer} RETURN n ORDER BY n.date"
+        #res = "MATCH (n:Reply)-[:REPLYTO]->(m:Question) WHERE m.id = {quer} RETURN n ORDER BY n.date"
+        res = "MATCH (n:Reply)-[:REPLYTO]->(m:Question) WHERE m.id = {quer} optional MATCH (u:User)-[r:UPVOTED]-(n:Reply)  RETURN n, COUNT(u) ORDER BY COUNT(u) DESC"
         r = "MATCH(n:User)-[:ANSWERED]->(m:Reply) WHERE m.id = {quer} RETURN n.username"
         book = "match(u:User), (q:Reply) WHERE u.username={user} AND q.id={text} RETURN EXISTS((u)-[:UPVOTED]-(q))"
+        cnt = "match(u:User)-[r:UPVOTED]-(m:Reply) WHERE m.id={id} RETURN COUNT(u)"
         poster = []
         ld = []
         liked = []
         c = 0
+        cc =[]
         for record in graph.run(res, quer=quest):
             a = [record['n']['date'], record['n']['text'], record['n']['id']]
             ld.append(a)
+            cc.append(graph.run(cnt, id=record['n']['id']).evaluate())
             poster.append(graph.run(r, quer=record['n']['id']).evaluate())
             liked.append(graph.run(book, user=self.username, text = record['n']['id']).evaluate())
             c += 1
-        return poster, ld, liked, c
+        return poster, ld, liked, c, cc
