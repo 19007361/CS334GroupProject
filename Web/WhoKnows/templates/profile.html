@@ -1,11 +1,286 @@
 {% extends 'layout.html' %}
 {% block body %}
-Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.
+
+<div class="container-fluid">
+
+<br>
+
+{% if edit == True %}
+<form action="{{ url_for('profile', name=me[0]) }}" method="POST" enctype = "multipart/form-data">
+<div class="alert alert-warning alert-dismissible fade show" role="alert">
+  <center>
+    You are editing your profile now!<br>
+    <button class="btn btn-success btn-sm btn-warning" > Submit changes </button>
+  </center>
+
+</div>
+{% endif %}
+
+  <!-- Users that want to follow you -->
+  <!--
+  <div class="card-header text-center">
+    <header class="" style="" id="recommended-follow_tab">
+      <h5>Users that want to follow you:</h5>
+      <p style="display:inline">User1</p> <button>Accept</button>
+      <p style="display:inline">User2</p> <button>Accept</button>
+      <p style="display:inline">User3</p> <button>Accept</button>
+    </header>
+  </div>
+-->
+
+
+  <div class="row">
+    <div class="col-sm-2"> <!-- TODO have to add more granularity -->
+      <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" width="100%" alt="default" class="rounded-circle">
+      {% if edit == True %}
+      <div class="custom-file">
+        <input type="file" class="custom-file-input" id="customFile" name="file" accept=".png">
+        <label class="custom-file-label" for="customFile"></label>
+      </div>
+      {% endif %}
+      <br>
+      <h1 id="profile_name">{{ me[1] }}</h1>
+      <h5 class="text-muted"><i> ~ {{ me[0] }}</i> <span class="badge badge-pill badge-warning float-right">{{ noUpvote }} Upvotes</span></h5>
+
+      {% if edit == True %}
+      <textarea class="form-control" name="bioEdit" rows="4" placeholder="Type in a short bio of yourself here!">{{ me[2] }}</textarea>
+
+      <div class="">
+        <h5>Password reset</h5>
+
+        <input type="password" class="form-control" placeholder="New Password" name="p1">
+        <input type="password" class="form-control" placeholder="Enter it again" name="p2">
+
+      </div>
+      {% else %}
+      <p>{{me[2]}}</p>
+      {% endif %}
+      <!--
+      <div class="" id="bookmark_tab">
+        <h5>My Bookmarked Questions</h5>
+        <a href="#">
+          Dummy Bookmark text1
+        </a> <a href="#" id="bookmark_txt1"></a><br>
+        <a href="#">
+          Dummy Bookmark text2
+        </a> <a href="#" id="bookmark_txt2"></a>
+      </div>
+      -->
+    </div>
+
+
+
+
+    <div class="col-sm-10">
+      <main class="mainbody">
+        <div class="card-header text-center">
+          <h5>Followers</h5>
+        </div>
+
+
+        <div class="card-group">
+          <div class="card text-center">
+            <div class="card-body">
+              <h5 class = "card-title">User1</h5>
+              <h5 class="card-title" id="follow-command_username1"></h5>
+              <!--Command can be edited-->
+              <img class="card-img-top" src="../../images/default_pic.gif" alt=""> <br>
+              <button class="">Follow</button>
+              <!-- <img id = "follow-command_profileimage1"class = "card-img-top" src="" alt=""> -->
+              <!--The edited image of the profile content -->
+            </div>
+          </div>
+        </div>
+
+        <div class="" id="recommended_followers">
+          <div class="card-header text-center">
+            <h5>Would you like to follow?</h5>
+          </div>
+          <div class="card-group">
+            <div class="card text-center">
+              <div class="card-body">
+                <h5 id="user1-followrec_username" class="card-title">User1</h5>
+                <img id="user1-followrec_profileimage" class="card-img-top" src="../../images/default_pic.gif" alt="default">
+                <button class="">Follow</button>
+              </div>
+            </div>
+          </div>
+        </div>
+      </main>
+
+
+      <div class="" style="">
+        <div class="card-header text-center">
+          <h3>My Top 3 Qs and As</h3>
+        </div>
+        <div class="row">
+
+          <!-- Following section on Bootstrap cards was adapted from https://getbootstrap.com/docs/4.0/components/card/#card-layout -->
+
+          <!-- Bootstrap card elements do not allow for the cards to be column-limited. Therefore, in order to arrive at the desired goal, one must manually insert the 4 columns into 2 rows of 4 and 1 row of 2 columns - they merely stack into one row  -->
+
+
+          <div class="card-group">
+
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title"> Dummy Question 1</h5>
+                <h5 class="card-title" id="card1_quest"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" id="user_answer1"></h6>
+                <!--The user who answered this question-->
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="card-text" id="card1_ans"></p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+          </div>
+        </div>
+
+      <div class="" id="my-questions_container">
+        <div class="card-header text-center">
+          <h3>My Questions</h3>
+        </div>
+        <div class="row" style="padding: 0px 10px 0px 10px;">
+          <div class="card-group">
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title"> Dummy MyQuestion 1</h5>
+                <h5 class="card-title" id="card1_myquest"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" id="user_myq-answer1"></h6>
+                <!--The user who answered this question-->
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="card-text" id="card1_myquestans"></p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title"> Dummy MyQuestion 2</h5>
+                <h5 class="card-title" id="card2_myquest"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" id="user_myq-answer2"></h6>
+                <!--The user who answered this question-->
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="card-text" id="card2_myquestans"></p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title"> Dummy MyQuestion 3</h5>
+                <h5 class="card-title" id="card3_myquest"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" id="user_myq-answer3"></h6>
+                <!--The user who answered this question-->
+                <p class="card-text">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <p class="card-text" id="card3_myquestans"></p>
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <!-- The field of answers -->
+      <div class="" id="my-answers_container">
+        <div class="card-header text-center">
+          <h3>My Answers</h3>
+        </div>
+        <div class="row" style="padding: 0px 10px 0px 10px;">
+          <div class="card-group">
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title"> Dummy MyQuestion 1</h5>
+                <h5 class="card-title" id="card1_myansquest"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" id="user_mya-answer1"></h6>
+                <!--The user who answered this question-->
+                <p class="card-text" style="height: 195px; overflow: hidden; text-overflow: ellipsis;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <!-- <p class="card-text" id = "card1_myans" style="height: 195px; overflow: hidden; text-overflow: ellipsis;"></p> -->
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title"> Dummy MyQuestion 2</h5>
+                <h5 class="card-title" id="card2_myquest"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" id="user_myq-answer2"></h6>
+                <!--The user who answered this question-->
+                <p class="card-text" style="height: 195px; overflow: hidden; text-overflow: ellipsis;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <!-- <p class="card-text" id = "card2_myquestans" style="height: 195px; overflow: hidden; text-overflow: ellipsis;"></p>  -->
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+            <div class="card text-center" style="">
+              <div class="card-body">
+                <h5 class="card-title"> Dummy MyQuestion 3</h5>
+                <h5 class="card-title" id="card3_myquest"></h5>
+                <h6 class="card-subtitle mb-2 text-muted" id="user_myq-answer3"></h6>
+                <!--The user who answered this question-->
+                <p class="card-text" style="height: 195px; overflow: hidden; text-overflow: ellipsis;">Lorem ipsum dolor sit amet, consectetur adipisicing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute
+                  irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
+                <!-- <p class="card-text" id = "card3_myquestans" style="height: 195px; overflow: hidden; text-overflow: ellipsis;"></p> -->
+                <a href="#" class="card-link">See the full question</a> <br>
+                <a href="#" class="card-link">See the user who answered the question</a>
+              </div>
+            </div>
+
+          </div>
+        </div>
+      </div>
+
+
+      <footer class="">
+
+
+
+
+        <h5>Topic suggestions</h5>
+        <p style="display:inline">Science</p> <button>Follow</button>
+        <p style="display:inline">Religion</p> <button>Follow</button>
+        <p style="display:inline">Politics</p> <button>Follow</button>
+        <p style="display:inline">Entertainment</p> <button>Follow</button>
+
+      </footer>
+      </div>
+
+
+    </div>
+  </div> <!-- ROW -->
+
+{% if edit == True %}
+</form>
+{% endif %}
+
+
 {% endblock %}
 {% block navleft %}
 {% include 'searchHandler.html'%}
 {% endblock %}
 {% block navright %}
-  {% include 'commonNav.html'%}
+<!-- TODO check if same user as current profile -->
+<li class="nav-item">
+  <form action="{{ url_for('profile', name=me[0]) }}" method="POST" id="d">
+    <input type="hidden" name="edit" value="True">
+    <a class="nav-link" onclick="$('#d').submit();" title="Edit my profile" ><i class="fas fa-edit"></i>
+    <span class="d-md-none">Edit my Profile</span></a>
+  </form>
+</li>
+{% include 'commonNav.html'%}
 {% endblock %}
 {% block title %} Profile Page {% endblock %}

@@ -22,7 +22,7 @@ class User:
         self.username = username
 
     def getMe(self):
-        return [self.username, self.find()['fullName']]
+        return [self.username, self.find()['fullName'], self.find()['bio']]
 
     def find(self):
         user = graph.find_one('User', 'username', self.username)
@@ -36,11 +36,26 @@ class User:
         user = graph.find_one('Question', 'id', term)
         return user
 
+    def editBio(self, bio):
+        q = "MATCH(u:User) WHERE u.username={user} SET u.bio = {bio} RETURN u"
+        graph.run(q, user=self.username, bio=bio)
+
+    def editPass(self, passw):
+        q = "MATCH(u:User) WHERE u.username={user} SET u.password = {pa} RETURN u"
+        graph.run(q, user=self.username, pa=bcrypt.encrypt(passw))
+
+    def getTotUV(self):
+        q = "match (u:User)-[:ANSWERED]-(r:Reply) where u.username = {user} OPTIONAL MATCH (b:User)-[e:UPVOTED]-(r) rETURN count(b) AS cnt, r"
+        tot = 0
+        for record in graph.run(q, user=self.username):
+            tot += record['cnt']
+        return tot
+
     def addUser(self, password, email, name, cbs):
         if not self.find():
             #move file
             shutil.copy(os.path.dirname(__file__)+"/static/defaultProf.png", os.path.dirname(__file__)+"/static/Users/"+self.username+".png")
-            user = Node("User", username=self.username, password=bcrypt.encrypt(password), email=email, fullName=name)
+            user = Node("User", username=self.username, password=bcrypt.encrypt(password), email=email, fullName=name, bio="")
             graph.create(user)
 
             topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']

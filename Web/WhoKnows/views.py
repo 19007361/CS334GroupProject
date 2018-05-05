@@ -1,5 +1,8 @@
 from flask import  Flask, render_template, flash, redirect, url_for, session, request, logging
 from .models import User
+from werkzeug import secure_filename
+import os
+import shutil
 
 app = Flask(__name__)
 
@@ -10,7 +13,6 @@ def index():
         return redirect(url_for('profile', name=session['username']))
     else:
         if request.method == 'POST':
-            print(request.form)
             if "loginUser" in request.form:
                 #Login
                 username = request.form['loginUN']
@@ -33,7 +35,7 @@ def index():
                         passw = request.form['p1']
                         email = request.form['email']
                         cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
-                        print(cbs)
+                        #print(cbs)
                         #^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$ email regex
                         if User(username).addUser(passw, email, name, cbs):
                             session['username'] = username
@@ -48,9 +50,26 @@ def index():
 
 @app.route('/p/<name>', methods=['GET','POST'])
 def profile(name):
+    edit = False
     if request.method == 'POST':
-        print("hi")
-    return render_template('profile.html', me = User(session['username']).getMe())
+        if 'edit' in request.form:
+            edit=True
+        else:
+            User(session['username']).editBio(request.form['bioEdit'])
+            if not len(request.form['p1']) == 0:
+                if request.form['p1'] == request.form['p2']:
+                    User(session['username']).editPass(request.form['p1'])
+            try:
+                file = request.files['file']
+            except:
+                file = None
+            if file and not file.filename == '':
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(os.path.dirname(__file__)+"/static/temp/", filename))
+                shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
+                os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
+
+    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV())
 
 @app.route('/s/<query>')
 def search(query):
