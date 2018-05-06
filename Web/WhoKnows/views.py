@@ -51,11 +51,14 @@ def index():
 @app.route('/p/<name>', methods=['GET','POST'])
 def profile(name):
     edit = False
+    fllw = User(session['username']).getFollowed()
     if request.method == 'POST':
         if 'edit' in request.form:
             edit=True
         else:
             User(session['username']).editBio(request.form['bioEdit'])
+            cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
+            User(session['username']).updateFollowed(cbs, fllw)
             if not len(request.form['p1']) == 0:
                 if request.form['p1'] == request.form['p2']:
                     User(session['username']).editPass(request.form['p1'])
@@ -69,7 +72,7 @@ def profile(name):
                 shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
                 os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
 
-    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV())
+    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw)
 
 @app.route('/s/<query>')
 def search(query):

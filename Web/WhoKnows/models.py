@@ -36,6 +36,27 @@ class User:
         user = graph.find_one('Question', 'id', term)
         return user
 
+    def getFollowed(self):
+        q = "MATCH (u:User)-[:LIKES]->(n:Topic) WHERE u.username={user} return n"
+        topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
+        out = [False, False, False, False, False, False, False]
+        for record in graph.run(q, user=self.username):
+            for i in range(len(topics)):
+                if topics[i] == record['n']['topic']:
+                    out[i] = True
+        return [topics, out]
+
+    def updateFollowed(self, cbs, fllw):
+        a = "MATCH (u:User), (t:Topic) WHERE u.username={user} AND t.topic={top} CREATE (u)-[:LIKES]->(t)"
+        r = "MATCH(u:User)-[r:LIKES]-(t:Topic) WHERE u.username={user} AND t.topic={top} DELETE r"
+        for i in range(len(cbs)):
+            if cbs[i]:
+                if not fllw[1][i] == True:
+                    graph.run(a, user=self.username, top=fllw[0][i])
+            else:
+                if not fllw[1][i] == False:
+                    graph.run(r, user=self.username, top=fllw[0][i])
+
     def editBio(self, bio):
         q = "MATCH(u:User) WHERE u.username={user} SET u.bio = {bio} RETURN u"
         graph.run(q, user=self.username, bio=bio)

@@ -34,8 +34,9 @@
       <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" width="100%" alt="default" class="rounded-circle">
       {% if edit == True %}
       <div class="custom-file">
+        <br>
         <input type="file" class="custom-file-input" id="customFile" name="file" accept=".png">
-        <label class="custom-file-label" for="customFile"></label>
+        <label class="custom-file-label" for="customFile">Edit Profile Pic</label>
       </div>
       {% endif %}
       <br>
@@ -47,10 +48,18 @@
 
       <div class="">
         <h5>Password reset</h5>
-
         <input type="password" class="form-control" placeholder="New Password" name="p1">
         <input type="password" class="form-control" placeholder="Enter it again" name="p2">
-
+      </div>
+      <h5>Topics</h5>
+      <div class="container">
+        {% for i in range(7) %}
+        {% if fllw[1][i] == True %}
+        <input type="checkbox" class="form-check-input" name="cb{{fllw[0][i]}}" checked> {{fllw[0][i]}}<br>
+        {% else %}
+        <input type="checkbox" class="form-check-input" name="cb{{fllw[0][i]}}"> {{fllw[0][i]}}<br>
+        {% endif %}
+        {% endfor %}
       </div>
       {% else %}
       <p>{{me[2]}}</p>
