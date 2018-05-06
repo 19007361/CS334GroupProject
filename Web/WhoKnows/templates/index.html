@@ -24,50 +24,43 @@
     </div>
     <div class="col-sm-12 col-md-4">
       <main class="mainbody">
-        <!-- Contains all the reigstraion details-->
+        <!-- Contains all the registraion details-->
         <form class="form-horizontal" action="{{ url_for('index') }}" method="POST">
           <fieldset>
             <legend>Registration:</legend>
-            <div class="control-group">
+            <div class="form-group">
               <!-- Username -->
-              <label class="control-label" for="username">Username</label>
-              <div class="controls">
-                <input type="text" id="username" name="username" placeholder="" class="input-xlarge" pattern="[a-zA-Z0-9]+" title="The username must be alphanumeric and contain no whitespaces">
-              </div>
+              <label for="username">Username</label>
+                <input type="text" id="username" name="username" placeholder="" class="form-control" pattern="[a-zA-Z0-9]+" title="The username must be alphanumeric and contain no whitespaces">
             </div>
-            <div class="control-group">
+            <div class="form-group">
               <!-- Username -->
               <label class="control-label" for="name">Full Name</label>
-              <div class="controls">
-                <input type="text" id="name" name="name" placeholder="" class="input-xlarge">
-              </div>
+                <input type="text" id="name" name="name" placeholder="" class="form-control input-xlarge">
+
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
               <!-- E-mail -->
-              <label class="control-label" for="email">E-mail</label>
-              <div class="controls">
-                <input type="email" id="email" name="email" placeholder="" class="input-xlarge">
+              <label  for="email">E-mail</label>
 
-              </div>
+                <input type="email" id="email" name="email" placeholder="" class="form-control input-xlarge">
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
               <!-- Password-->
-              <label class="control-label" for="password">Password</label>
-              <div class="controls">
-                <input type="password" id="password" name="p1" placeholder="" class="input-xlarge"  pattern="(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9\W]{8,}"  title="Your password must contain at least 1 uppercase character, 1 digit and 8 characters">
+              <label  for="password">Password</label>
 
-              </div>
+                <input type="password" id="password" name="p1" placeholder="" class="form-control input-xlarge"  pattern="(?=.*[A-Z])(?=.*[0-9])[a-zA-Z0-9\W]{8,}"  title="Your password must contain at least 1 uppercase character, 1 digit and 8 characters">
             </div>
 
-            <div class="control-group">
+            <div class="form-group">
               <!-- Password -->
-              <label class="control-label" for="password_confirm">Password (Confirm)</label>
-              <div class="controls">
-                <input type="password" id="password_confirm" name="p2" placeholder="" class="input-xlarge">
+              <label  for="password_confirm">Password (Confirm)</label>
 
-              </div>
+                <input type="password" id="password_confirm" name="p2" placeholder="" class="form-control input-xlarge">
+
+
             </div>
             <legend>Topic Selection:</legend>
 

@@ -23,6 +23,27 @@
       {% endif %}
     </ul>
   </div>
+  <div class="card">
+    <div class="card-header">
+      <h4>Search results for user: <i>{{query}}</i></h4>
+    </div>
+    <ul class="list-group list-group-flush">
+      {% if noPosts == 0 %}
+      <li class="list-group-item">
+        <h5>No user with that name found</h5>
+      </li>
+      {% else %}
+      {% for i in range(noPosts) %}
+      <li class="list-group-item">
+        <small class="text-muted float-right">{{results[i][2]}}</small>
+        <h5>{{results[i][0]}}</h5>
+        {{results[i][1]}}
+        <button type="button" class="btn btn-primary">Follow</button>
+      </li>
+      {% endfor %}
+      {% endif %}
+    </ul>
+  </div>
 </div>
 {% endblock %}
 {% block navleft %}
