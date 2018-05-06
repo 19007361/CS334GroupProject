@@ -4,7 +4,7 @@
 <div class="container-fluid">
   <div class="card">
     <div class="card-header">
-      <h4>Search results for <i>{{query}}</i></h4>
+      <h4>Questions containing <i>{{query}}</i></h4>
     </div>
     <ul class="list-group list-group-flush">
       {% if noPosts == 0 %}
@@ -25,19 +25,27 @@
   </div>
   <div class="card">
     <div class="card-header">
-      <h4>Search results for user: <i>{{query}}</i></h4>
+      <h4>Usernames containing <i>{{query}}</i></h4>
     </div>
     <ul class="list-group list-group-flush">
-      {% if noPosts == 0 %}
+      {% if c == 0 %}
       <li class="list-group-item">
         <h5>No user with that name found</h5>
       </li>
       {% else %}
-      {% for i in range(noPosts) %}
+      {% for i in range(c) %}
       <li class="list-group-item">
-        <h5>{{results[i][0]}}</h5>
-        <button type="button" class="btn btn-primary float-right">Follow</button>
-        {{results[i][1]}}
+        <h5 class="inline">{{usr[i][1]}}</h5> ~ <a href="/p/{{usr[i][0]}}" class="float-right">{{usr[i][0]}}</a>
+        <form action="{{ url_for('search', query=query) }}" method="POST">
+
+          {% if usr[i][3] == False %}
+          <input type="hidden" name="follow" value="{{usr[i][0]}}">
+        <button type="submit" class="btn btn-primary float-right">Follow</button>
+        {% else %}
+        <input type="hidden" name="unfollow" value="{{usr[i][0]}}">
+      <button type="submit" class="btn btn-primary float-right">Unfollow</button>
+        {% endif %}
+      </form>
       </li>
       {% endfor %}
       {% endif %}

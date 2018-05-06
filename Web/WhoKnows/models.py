@@ -145,6 +145,16 @@ class User:
         q = "MATCH(u:User)-[r:BOOKMARKED]-(p:Question) WHERE u.username={user} AND p.id={post} DELETE r"
         graph.run(q, user=self.username, post=qID)
 
+    def getBookmarked(self):
+        f = "MATCH (u:User)-[:BOOKMARKED]->(q:Question) WHERE u.username={user} RETURN q"
+        out = []
+        c=0
+        for res in graph.run(f, user=self.username):
+            u = [res['q']['title'], res['q']['id']]
+            out.append(u)
+            c +=1
+        return out, c
+
     def getQuestion(self, quer):
         whoAsked = "MATCH(n:User)-[:ASKED]->(m:Question) WHERE m.id = {quer} RETURN n.username"
         tagged = "MATCH(n:Topic)<-[:TAGGED]-(m:Question) WHERE m.id = {quer} RETURN n.topic as o"
@@ -153,7 +163,6 @@ class User:
         #tag = graph.run(tagged, quer = quer).evaluate()
         ii = []
         for res in graph.run(tagged, quer=quer):
-            print(res['o'])
             ii.append(res['o'])
         tag = ', '.join(ii)
         bmrk = graph.run(book, user=self.username, title=quer).evaluate()
@@ -171,12 +180,30 @@ class User:
             ld.append(a)
             ii = []
             for res in graph.run(tagged, quer=record['n']['title']):
-                print(res['o'])
                 ii.append(res['o'])
             tags.append(', '.join(ii))
             #tags.append(graph.run(tagged, quer = record['n']['title']).evaluate())
             c += 1
         return tags, ld, c
+
+    def getSearchUser(self, quer):
+        res = "MATCH(n:User) WHERE toLower(n.username) CONTAINS toLower({quer}) AND NOT n.username={slf} RETURN n"
+        fll = "match(u:User), (q:User) WHERE u.username={user} AND q.username={text} RETURN EXISTS((u)-[:FOLLOWS]->(q))"
+        out = []
+        c = 0
+        for record in graph.run(res, quer=quer, slf=self.username):
+            out.append([record['n']['username'], record['n']['fullName'], record['n']['bio'], graph.run(fll, user=self.username, text=record['n']['username']).evaluate() ])
+            c += 1
+        return out, c
+
+    def followUser(self, other):
+        user = self.find()
+        uu = graph.find_one('User', 'username', other)
+        graph.create(Relationship(user, "FOLLOWS", uu))
+
+    def unfollowUser(self, other):
+        q = "MATCH(u:User)-[r:FOLLOWS]-(p:User) WHERE u.username={user} AND p.username={post} DELETE r"
+        graph.run(q, user=self.username, post=other)
 
     def getReplies(self, quest):
         #res = "MATCH (n:Reply)-[:REPLYTO]->(m:Question) WHERE m.id = {quer} RETURN n ORDER BY n.date"

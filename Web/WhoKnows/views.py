@@ -52,6 +52,9 @@ def index():
 def profile(name):
     edit = False
     fllw = User(session['username']).getFollowed()
+    #Bookmarked Questions
+    bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
+
     if request.method == 'POST':
         if 'edit' in request.form:
             edit=True
@@ -72,16 +75,24 @@ def profile(name):
                 shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
                 os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
 
-    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw)
+    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ)
 
-@app.route('/s/<query>')
+@app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):
+    if request.method == 'POST':
+        if 'follow' in request.form:
+            User(session['username']).followUser(request.form['follow'])
+        elif 'unfollow' in request.form:
+            User(session['username']).unfollowUser(request.form['unfollow'])
+
     results = []
     tag, text, n = User(session['username']).getSearch(query)
+    usr, c = User(session['username']).getSearchUser(query)
     for i in range(n):
         r = [text[i][0], text[i][1], tag[i], text[i][2]]
         results.append(r)
-    return render_template('search.html', me=User(session['username']).getMe(), results=results, noPosts=len(results), query=query)
+
+    return render_template('search.html', me=User(session['username']).getMe(), results=results, noPosts=n, query=query, usr=usr, c=c)
 
 @app.route('/q/<id>', methods=['GET','POST'])
 def question(id):
