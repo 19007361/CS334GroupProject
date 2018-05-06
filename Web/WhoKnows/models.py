@@ -98,7 +98,7 @@ class User:
 
     def addQuestion(self, title, tag, text):
         user = self.find()
-        topic = graph.find_one('Topic', 'topic', tag)
+        topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
         post = Node(
                 "Question",
                 id=str(uuid.uuid4()),
@@ -106,10 +106,13 @@ class User:
                 text=text,
                 date=date()
         )
+        for i in range(len(tag)):
+            if tag[i] == True:
+                topic = graph.find_one('Topic', 'topic', topics[i])
+                graph.create(Relationship(post, "TAGGED", topic))
+
         rel = Relationship(user, "ASKED", post)
-        rel2 = Relationship(post, "TAGGED", topic)
         graph.create(rel)
-        graph.create(rel2)
 
     def addReply(self, title, text):
         user = self.find()
@@ -144,16 +147,21 @@ class User:
 
     def getQuestion(self, quer):
         whoAsked = "MATCH(n:User)-[:ASKED]->(m:Question) WHERE m.id = {quer} RETURN n.username"
-        tagged = "MATCH(n:Topic)<-[:TAGGED]-(m:Question) WHERE m.id = {quer} RETURN n.topic"
+        tagged = "MATCH(n:Topic)<-[:TAGGED]-(m:Question) WHERE m.id = {quer} RETURN n.topic as o"
         book = "match(u:User), (q:Question) WHERE u.username={user} AND q.id={title} RETURN EXISTS((u)-[:BOOKMARKED]-(q))"
         user = graph.run(whoAsked, quer=quer).evaluate()
-        tag = graph.run(tagged, quer = quer).evaluate()
+        #tag = graph.run(tagged, quer = quer).evaluate()
+        ii = []
+        for res in graph.run(tagged, quer=quer):
+            print(res['o'])
+            ii.append(res['o'])
+        tag = ', '.join(ii)
         bmrk = graph.run(book, user=self.username, title=quer).evaluate()
         quest = self.findByID(quer)
         return quest, user, tag, bmrk
 
     def getSearch(self, quer):
-        tagged = "MATCH(n:Topic)<-[:TAGGED]-(m:Question) WHERE m.title = {quer} RETURN n.topic"
+        tagged = "MATCH(n:Topic)<-[:TAGGED]-(m:Question) WHERE m.title = {quer} RETURN n.topic as o"
         res = "MATCH(n:Question) WHERE toLower(n.title) CONTAINS toLower({quer}) RETURN n ORDER BY n.date"
         tags = []
         ld = []
@@ -161,7 +169,12 @@ class User:
         for record in graph.run(res, quer=quer):
             a = [record['n']['title'], record['n']['text'], record['n']['id']]
             ld.append(a)
-            tags.append(graph.run(tagged, quer = record['n']['title']).evaluate())
+            ii = []
+            for res in graph.run(tagged, quer=record['n']['title']):
+                print(res['o'])
+                ii.append(res['o'])
+            tags.append(', '.join(ii))
+            #tags.append(graph.run(tagged, quer = record['n']['title']).evaluate())
             c += 1
         return tags, ld, c
 

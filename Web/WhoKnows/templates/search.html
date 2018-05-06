@@ -35,10 +35,9 @@
       {% else %}
       {% for i in range(noPosts) %}
       <li class="list-group-item">
-        <small class="text-muted float-right">{{results[i][2]}}</small>
         <h5>{{results[i][0]}}</h5>
+        <button type="button" class="btn btn-primary float-right">Follow</button>
         {{results[i][1]}}
-        <button type="button" class="btn btn-primary">Follow</button>
       </li>
       {% endfor %}
       {% endif %}

@@ -111,7 +111,8 @@ def newquestion():
     if request.method == 'POST':
             if not len(request.form['textTitl']) == 0:
                 if not len(request.form['textArea']) == 0:
-                    User(session['username']).addQuestion(request.form['textTitl'], request.form['topicSelect'], request.form['textArea'])
+                    cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
+                    User(session['username']).addQuestion(request.form['textTitl'], cbs, request.form['textArea'])
                     return redirect(url_for('question', id=User(session['username']).findT(request.form['textTitl'])['id']))
     return render_template('newquestion.html', me = User(session['username']).getMe())
 
