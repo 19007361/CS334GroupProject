@@ -51,7 +51,7 @@ def index():
 @app.route('/p/<name>', methods=['GET','POST'])
 def profile(name):
     edit = False
-    original = False
+    original = False #if the current session user is the same user as the profle being viewed
     fllw = User(session['username']).getFollowed() #iffy about this here but fllw needs to exist before it can be assigned in updateFollowed
     bookmarkedQ = []
     noBMQ = 0
