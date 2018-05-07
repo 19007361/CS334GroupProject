@@ -93,7 +93,7 @@ def profile(name):
         #POSED QUESTIONS - OTHER PROFILE only
         userPosts, noUP = User(session['username']).getUserPosts(name)
 
-    return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name = name, userPosts = userPosts, noUP= noUP)
+    return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), otherUpvote = User(session['username']).getOtherUV(otherUser=name), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name = name, userPosts = userPosts, noUP= noUP)
 
 
 

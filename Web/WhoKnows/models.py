@@ -81,6 +81,13 @@ class User:
             tot += record['cnt']
         return tot
 
+    def getOtherUV(self, otherUser):
+        q = "match (u:User)-[:ANSWERED]-(r:Reply) where u.username = {user} OPTIONAL MATCH (b:User)-[e:UPVOTED]-(r) rETURN count(b) AS cnt, r"
+        tot = 0
+        for record in graph.run(q, user=otherUser):
+            tot += record['cnt']
+        return tot
+
     def suggestedFollow(self):
         #This function is only visible on one's own profile, hence self.username used
         q = "MATCH (u:User), (i:User) WHERE i.username = {user} AND NOT u.username = {user} AND NOT (u)<-[:FOLLOWS]-(i) OPTIONAL MATCH (c:User)-[:UPVOTED]->(r:Reply) WHERE (u)-[:ANSWERED]->(r) RETURN u, count(c) as cnt ORDER BY cnt DESC LIMIT 5"

@@ -49,7 +49,7 @@
       <h5 class="text-muted"><i> ~ {{ me[0] }}</i> <span class="badge badge-pill badge-warning float-right">{{ noUpvote }} Upvotes</span></h5>
       {% else %}
       <h1 id="profile_name">{{ other[1] }}</h1>
-      <h5 class="text-muted"><i> ~ {{ other[0] }}</i> <span class="badge badge-pill badge-warning float-right">{{ noUpvote }} Upvotes</span></h5>
+      <h5 class="text-muted"><i> ~ {{ other[0] }}</i> <span class="badge badge-pill badge-warning float-right">{{ otherUpvote }} Upvotes</span></h5>
       {% endif %}
       {% if ((edit == True) and (currentUser == True)) %}
       <textarea class="form-control" name="bioEdit" rows="4" placeholder="Type in a short bio of yourself here!">{{ me[2] }}</textarea>
