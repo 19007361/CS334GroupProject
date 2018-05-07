@@ -11,7 +11,6 @@ graph = Graph(username = "Database", password = "password")
 def initDB():
     topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
     user = graph.find_one('Topic', 'topic', "Pschology")
-    print(user)
     if user == None:
         for i in range(len(topics)):
             graph.create(Node("Topic", topic=topics[i]))
@@ -108,8 +107,6 @@ class User:
         out = []
         c= 0
         for res in graph.run(q, user=username):
-            #print("COOL THINGS")
-            #print(res['out'])
             # type, title, text, id
             if 'title' in res['out']:
                 #Question

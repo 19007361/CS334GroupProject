@@ -35,7 +35,6 @@ def index():
                         passw = request.form['p1']
                         email = request.form['email']
                         cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
-                        #print(cbs)
                         #^[a-zA-Z0-9._-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,4}$ email regex
                         if User(username).addUser(passw, email, name, cbs):
                             session['username'] = username
