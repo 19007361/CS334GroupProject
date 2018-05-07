@@ -75,12 +75,14 @@ def profile(name):
                 os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
 
     fllw = User(session['username']).getFollowed()
-    #Bookmarked Questions
+    #Bookmarked Questions - OWN PROFILE ONLY
     bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
     #Suggested Follow - OWN PROFILE ONLY
     suggestedUser, noSU = User(session['username']).suggestedFollow()
+    #POSED QUESTIONS - OTHER PROFILE only
+    userPosts, noUP = User(session['username']).getUserPosts(name)
 
-    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name=name)
+    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name=name, userPosts = userPosts, noUP= noUP)
 
 @app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):

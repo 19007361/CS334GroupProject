@@ -87,6 +87,23 @@ class User:
             c += 1
         return out, c
 
+    def getUserPosts(self, username):
+        q = "MATCH (u:User)-[:ASKED]->(q:Question) WHERE u.username={user} RETURN q as out UNION MATCH (u)-[:ANSWERED]->(r:Reply) WHERE u.username={user} RETURN r as out ORDER BY out.date DESC LIMIT 10"
+        a = "MATCH (r:Reply)-[:REPLYTO]->(q:Question) WHERE r.id={text} RETURN q"
+        out = []
+        c= 0
+        for res in graph.run(q, user=username):
+            # type, title, text, id
+            if 'title' in res['out']:
+                #Question
+                out.append(["Q", res['out']['title'], res['out']['text'], res['out']['id'] ])
+            else:
+                #Answer
+                ques = graph.run(a, text=res['out']['id']).evaluate()
+                out.append(["A", ques['title'], res['out']['text'], ques['id'] ])
+            c += 1
+        return out, c
+
     def addUser(self, password, email, name, cbs):
         if not self.find():
             #move file
