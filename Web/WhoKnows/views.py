@@ -52,30 +52,34 @@ def index():
 def profile(name):
     edit = False
     fllw = User(session['username']).getFollowed()
-    #Bookmarked Questions
-    bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
+    bookmarkedQ = []
+    noBMQ = 0
+    original = False
+    if session['username'] == name:
+        original = True
+        #Bookmarked Questions
+        bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
+        if request.method == 'POST':
+            if 'edit' in request.form:
+                edit=True
+            else:
+                User(session['username']).editBio(request.form['bioEdit'])
+                cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
+                User(session['username']).updateFollowed(cbs, fllw)
+                if not len(request.form['p1']) == 0:
+                    if request.form['p1'] == request.form['p2']:
+                        User(session['username']).editPass(request.form['p1'])
+                try:
+                    file = request.files['file']
+                except:
+                    file = None
+                if file and not file.filename == '':
+                    filename = secure_filename(file.filename)
+                    file.save(os.path.join(os.path.dirname(__file__)+"/static/temp/", filename))
+                    shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
+                    os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
 
-    if request.method == 'POST':
-        if 'edit' in request.form:
-            edit=True
-        else:
-            User(session['username']).editBio(request.form['bioEdit'])
-            cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
-            User(session['username']).updateFollowed(cbs, fllw)
-            if not len(request.form['p1']) == 0:
-                if request.form['p1'] == request.form['p2']:
-                    User(session['username']).editPass(request.form['p1'])
-            try:
-                file = request.files['file']
-            except:
-                file = None
-            if file and not file.filename == '':
-                filename = secure_filename(file.filename)
-                file.save(os.path.join(os.path.dirname(__file__)+"/static/temp/", filename))
-                shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
-                os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
-
-    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ)
+    return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser=original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ)
 
 @app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):

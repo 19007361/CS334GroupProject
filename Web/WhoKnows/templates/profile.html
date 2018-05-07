@@ -5,7 +5,7 @@
 
 <br>
 
-{% if edit == True %}
+{% if ((edit == True) and (currentUser == True)) %}
 <form action="{{ url_for('profile', name=me[0]) }}" method="POST" enctype = "multipart/form-data">
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <center>
@@ -31,8 +31,12 @@
 
   <div class="row">
     <div class="col-sm-2"> <!-- TODO have to add more granularity -->
+      {% if currentUser == True %}
       <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" width="100%" alt="default" class="rounded-circle">
-      {% if edit == True %}
+      {% else %}
+      <img src="{{ url_for('static', filename='Users/'+other[0]+'.png') }}" width="100%" alt="default" class="rounded-circle">
+      {% endif %}
+      {% if ((edit == True) and (currentUser == True)) %}
       <div class="custom-file">
         <br>
         <input type="file" class="custom-file-input" id="customFile" name="file" accept=".png">
@@ -40,10 +44,14 @@
       </div>
       {% endif %}
       <br>
+      {% if currentUser == True %}
       <h1 id="profile_name">{{ me[1] }}</h1>
       <h5 class="text-muted"><i> ~ {{ me[0] }}</i> <span class="badge badge-pill badge-warning float-right">{{ noUpvote }} Upvotes</span></h5>
-
-      {% if edit == True %}
+      {% else %}
+      <h1 id="profile_name">{{ other[1] }}</h1>
+      <h5 class="text-muted"><i> ~ {{ other[0] }}</i> <span class="badge badge-pill badge-warning float-right">{{ noUpvote }} Upvotes</span></h5>
+      {% endif %}
+      {% if ((edit == True) and (currentUser == True)) %}
       <textarea class="form-control" name="bioEdit" rows="4" placeholder="Type in a short bio of yourself here!">{{ me[2] }}</textarea>
 
       <div class="">
@@ -62,7 +70,11 @@
         {% endfor %}
       </div>
       {% else %}
-      <p>{{me[2]}}</p>
+        {% if currentUser == True %}
+        <p>{{me[2]}}</p>
+        {% else %}
+        <p>{{other[2]}}</p>
+        {% endif %}
       {% endif %}
       <!--
       <div class="" id="bookmark_tab">
@@ -309,6 +321,7 @@
     <span class="d-md-none">Edit my Profile</span></a>
   </form>
 </li>
+
 {% include 'commonNav.html'%}
 {% endblock %}
 {% block title %} Profile Page {% endblock %}

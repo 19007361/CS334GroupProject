@@ -33,6 +33,10 @@ class User:
         user = graph.find_one('User', 'username', self.username)
         return user
 
+    def getOther(self, otherUser):
+        other = graph.find_one('User', 'username', otherUser)
+        return [otherUser, other['fullName'], other['bio']]
+
     def findT(self, term):
         user = graph.find_one('Question', 'title', term)
         return user
