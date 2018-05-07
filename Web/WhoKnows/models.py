@@ -81,6 +81,16 @@ class User:
             tot += record['cnt']
         return tot
 
+    def suggestedFollow(self):
+        #This function is only visible on one's own profile, hence self.username used
+        q = "MATCH (u:User), (i:User) WHERE i.username = {user} AND NOT u.username = {user} AND NOT (u)<-[:FOLLOWS]-(i) OPTIONAL MATCH (c:User)-[:UPVOTED]->(r:Reply) WHERE (u)-[:ANSWERED]->(r) RETURN u, count(c) as cnt ORDER BY cnt DESC LIMIT 5"
+        out = []
+        c= 0
+        for res in graph.run(q, user=self.username):
+            out.append([res['u']['username'], res['u']['fullName'], res['cnt']])
+            c += 1
+        return out, c
+
     def addUser(self, password, email, name, cbs):
         if not self.find():
             #move file

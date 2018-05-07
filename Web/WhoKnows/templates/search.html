@@ -35,7 +35,8 @@
       {% else %}
       {% for i in range(c) %}
       <li class="list-group-item">
-        <h5 class="inline">{{usr[i][1]}}</h5> ~ <a href="/p/{{usr[i][0]}}" class="float-right">{{usr[i][0]}}</a>
+        <img src="{{ url_for('static', filename='Users/'+usr[i][0]+'.png') }}" height="60" alt="default" class="rounded-circle float-left">
+        <h5 style="display: inline">{{usr[i][1]}}</h5> ~ <a href="/p/{{usr[i][0]}}">{{usr[i][0]}}</a>
         <form action="{{ url_for('search', query=query) }}" method="POST">
 
           {% if usr[i][3] == False %}

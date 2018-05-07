@@ -76,20 +76,7 @@
         <p>{{other[2]}}</p>
         {% endif %}
       {% endif %}
-      <!--
-      <div class="" id="bookmark_tab">
-        <h5>My Bookmarked Questions</h5>
-        <a href="#">
-          Dummy Bookmark text1
-        </a> <a href="#" id="bookmark_txt1"></a><br>
-        <a href="#">
-          Dummy Bookmark text2
-        </a> <a href="#" id="bookmark_txt2"></a>
-      </div>
-      -->
     </div>
-
-
 
 
     <div class="col-sm-10">
@@ -111,6 +98,32 @@
         {% endif %}
       </div>
 
+      <div class="container-fluid">
+      <div class="card">
+        <div class="card-header">
+          <h4>You should totally follow!</h4>
+        </div>
+        <ul class="list-group list-group-flush">
+          {% if noSU == 0 %}
+          <li class="list-group-item">
+            <h5>There's nobody who we think you should follow :(</h5>
+          </li>
+          {% else %}
+          {% for i in range(noSU) %}
+          <li class="list-group-item">
+            <img src="{{ url_for('static', filename='Users/'+suggestedUser[i][0]+'.png') }}" height="60" alt="default" class="rounded-circle float-left">
+            <h5 style="display: inline">{{suggestedUser[i][1]}}</h5> ~ <a href="/p/{{suggestedUser[i][0]}}">{{suggestedUser[i][0]}}</a>
+            <span class="badge badge-pill badge-warning float-right">{{ suggestedUser[i][2] }} Upvotes</span>
+            <form action="{{ url_for('profile', name=name) }}" method="POST">
+              <input type="hidden" name="follow" value="{{suggestedUser[i][0]}}">
+            <button type="submit" class="btn btn-primary float-right">Follow</button>
+          </form>
+          </li>
+          {% endfor %}
+          {% endif %}
+        </ul>
+      </div>
+    </div>
 
       <main class="mainbody">
         <div class="card-header text-center">
