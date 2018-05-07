@@ -98,14 +98,18 @@ class User:
             c += 1
         return out, c
 
+    def isFollowing(self, other):
+        q = "match(u:User), (q:User) WHERE u.username={user} AND q.username={text} RETURN EXISTS((u)-[:FOLLOWS]->(q))"
+        return graph.run(q, user=self.username, text=other).evaluate()
+
     def getUserPosts(self, username):
         q = "MATCH (u:User)-[:ASKED]->(q:Question) WHERE u.username={user} RETURN q as out UNION MATCH (u)-[:ANSWERED]->(r:Reply) WHERE u.username={user} RETURN r as out ORDER BY out.date DESC LIMIT 10"
         a = "MATCH (r:Reply)-[:REPLYTO]->(q:Question) WHERE r.id={text} RETURN q"
         out = []
         c= 0
         for res in graph.run(q, user=username):
-            print("COOL THINGS")
-            print(res['out'])
+            #print("COOL THINGS")
+            #print(res['out'])
             # type, title, text, id
             if 'title' in res['out']:
                 #Question

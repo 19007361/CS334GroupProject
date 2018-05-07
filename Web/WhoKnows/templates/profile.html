@@ -60,6 +60,21 @@
         {% if currentUser == True %}
         <p>{{me[2]}}</p>
         {% else %}
+        {% if following == True %}
+        <br>
+        <form action="{{ url_for('profile', name=name) }}" method="POST">
+          <input type="hidden" name="unfollow" value="{{other[0]}}">
+        <button type="submit" class="btn btn-primary">Unfollow</button>
+      </form>
+      <br>
+        {% else %}
+        <br>
+        <form action="{{ url_for('profile', name=name) }}" method="POST">
+          <input type="hidden" name="follow" value="{{other[0]}}">
+        <button type="submit" class="btn btn-primary">Follow</button>
+      </form>
+      <br>
+        {% endif %}
         <p>{{other[2]}}</p>
         {% endif %}
       {% endif %}
@@ -120,6 +135,7 @@
         <h4>This person's last 10 posts</h4>
       </div>
       <ul class="list-group list-group-flush">
+        {% if following == True %}
         {% if noUP == 0 %}
         <li class="list-group-item">
           <h5>Dude, no way... This guy hasn't posted yet...</h5>
@@ -144,6 +160,11 @@
         </li>
         {% endif %}
         {% endfor %}
+        {% endif %}
+        {% else %}
+        <li class="list-group-item">
+          <h5>To see this you must follow this user.</h5>
+        </li>
         {% endif %}
       </ul>
     </div>
