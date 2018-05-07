@@ -58,6 +58,7 @@ def profile(name):
     suggestedUser = []
     noSU = 0
     if request.method == 'POST':
+<<<<<<< HEAD
         if session['username'] == name:
             original = True
             if 'edit' in request.form:
@@ -89,6 +90,38 @@ def profile(name):
         suggestedUser, noSU = User(session['username']).suggestedFollow()
 
     return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name=name)
+=======
+        if 'edit' in request.form:
+            edit=True
+        elif 'follow' in request.form:
+            User(session['username']).followUser(request.form['follow'])
+        else:
+            User(session['username']).editBio(request.form['bioEdit'])
+            cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
+            User(session['username']).updateFollowed(cbs, fllw)
+            if not len(request.form['p1']) == 0:
+                if request.form['p1'] == request.form['p2']:
+                    User(session['username']).editPass(request.form['p1'])
+            try:
+                file = request.files['file']
+            except:
+                file = None
+            if file and not file.filename == '':
+                filename = secure_filename(file.filename)
+                file.save(os.path.join(os.path.dirname(__file__)+"/static/temp/", filename))
+                shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
+                os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
+
+    fllw = User(session['username']).getFollowed()
+    #Bookmarked Questions - OWN PROFILE ONLY
+    bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
+    #Suggested Follow - OWN PROFILE ONLY
+    suggestedUser, noSU = User(session['username']).suggestedFollow()
+    #POSED QUESTIONS - OTHER PROFILE only
+    userPosts, noUP = User(session['username']).getUserPosts(name)
+
+    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name=name, userPosts = userPosts, noUP= noUP)
+>>>>>>> 18cfb23038871edc7629a9fea731313a656b9015
 
 @app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):

@@ -125,6 +125,7 @@
         </ul>
       </div>
     </div>
+<<<<<<< HEAD
       {% endif %}
       <main class="mainbody">
         <div class="card-header text-center">
@@ -303,6 +304,43 @@
       </div>
 
 
+=======
+
+    <div class="container-fluid">
+    <div class="card">
+      <div class="card-header">
+        <h4>This person's last 10 posts</h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% if noUP == 0 %}
+        <li class="list-group-item">
+          <h5>Dude, no way... This guy hasn't posted yet...</h5>
+        </li>
+        {% else %}
+        {% for i in range(noUP) %}
+        {% if userPosts[i][0] == "Q" %}
+        <li class="list-group-item">
+          <h5>{{userPosts[i][1]}}</h5>
+          <p>
+            {{userPosts[i][2]}}
+          </p>
+          <a href="/q/{{userPosts[i][3]}}" class="float-right">read more</a>
+        </li>
+        {% else %}
+        <li class="list-group-item">
+          <h5>Answer to {{userPosts[i][1]}}</h5>
+          <p>
+            {{userPosts[i][2]}}
+          </p>
+          <a href="/q/{{userPosts[i][3]}}" class="float-right">read more</a>
+        </li>
+        {% endif %}
+        {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+  </div>
+>>>>>>> 18cfb23038871edc7629a9fea731313a656b9015
     </div>
   </div> <!-- ROW -->
 
