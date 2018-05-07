@@ -53,14 +53,7 @@ def profile(name):
     edit = False
     original = False #if the current session user is the same user as the profle being viewed
     fllw = User(session['username']).getFollowed() #iffy about this here but fllw needs to exist before it can be assigned in updateFollowed
-    bookmarkedQ = []
-    noBMQ = 0
-    suggestedUser = []
-    noSU = 0
-    userPosts = []
-    noUP = 0
     if request.method == 'POST':
-
         if session['username'] == name:
             original = True
             if 'edit' in request.form:
@@ -83,6 +76,7 @@ def profile(name):
                     file.save(os.path.join(os.path.dirname(__file__)+"/static/temp/", filename))
                     shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
                     os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
+
     if session['username'] == name:
         original = True
         fllw = User(session['username']).getFollowed()
@@ -91,12 +85,17 @@ def profile(name):
         #Suggested Follow - OWN PROFILE ONLY
         suggestedUser, noSU = User(session['username']).suggestedFollow()
         #POSED QUESTIONS - OTHER PROFILE only
+        userPosts = []
+        noUP = 0
+    else:
+        bookmarkedQ = []
+        noBMQ = 0
+        suggestedUser = []
+        noSU = 0
+        #POSED QUESTIONS - OTHER PROFILE only
         userPosts, noUP = User(session['username']).getUserPosts(name)
 
     return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), otherUpvote = User(session['username']).getOtherUV(otherUser=name), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name = name, userPosts = userPosts, noUP= noUP)
-
-
-
 
 @app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):

@@ -104,6 +104,8 @@ class User:
         out = []
         c= 0
         for res in graph.run(q, user=username):
+            print("COOL THINGS")
+            print(res['out'])
             # type, title, text, id
             if 'title' in res['out']:
                 #Question
