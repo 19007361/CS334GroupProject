@@ -1,5 +1,6 @@
 from .views import app
 from .models import graph
+from .models import initDB
 
 
 def create_unique_constraint(label, property):
@@ -11,3 +12,4 @@ create_unique_constraint("User", "username")
 create_unique_constraint("Question", "id")
 create_unique_constraint("Topic", "topic")
 create_unique_constraint("Reply", "id")
+initDB()

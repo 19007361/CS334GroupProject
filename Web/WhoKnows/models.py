@@ -8,11 +8,16 @@ import shutil
 
 graph = Graph(username = "Database", password = "password")
 
-def timestamp():
-    epoch = datetime.utcfromtimestamp(0)
-    now = datetime.now()
-    delta = now - epoch
-    return delta.total_seconds()
+def initDB():
+    topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
+    user = graph.find_one('Topic', 'topic', "Pschology")
+    print(user)
+    if user == None:
+        for i in range(len(topics)):
+            graph.create(Node("Topic", topic=topics[i]))
+        print("DB initialized")
+    else:
+        print("DB was ready")
 
 def date():
     return datetime.now().strftime('%Y-%m-%d')
