@@ -51,13 +51,12 @@ def index():
 @app.route('/p/<name>', methods=['GET','POST'])
 def profile(name):
     edit = False
-    fllw = User(session['username']).getFollowed()
-    #Bookmarked Questions
-    bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
 
     if request.method == 'POST':
         if 'edit' in request.form:
             edit=True
+        elif 'follow' in request.form:
+            User(session['username']).followUser(request.form['follow'])
         else:
             User(session['username']).editBio(request.form['bioEdit'])
             cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
@@ -75,7 +74,13 @@ def profile(name):
                 shutil.copy(os.path.dirname(__file__)+"/static/temp/"+filename, os.path.dirname(__file__)+"/static/Users/"+session['username']+".png")
                 os.unlink(os.path.dirname(__file__)+"/static/temp/"+filename)
 
-    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ)
+    fllw = User(session['username']).getFollowed()
+    #Bookmarked Questions
+    bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
+    #Suggested Follow - OWN PROFILE ONLY
+    suggestedUser, noSU = User(session['username']).suggestedFollow()
+
+    return render_template('profile.html', me = User(session['username']).getMe(), edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name=name)
 
 @app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):
