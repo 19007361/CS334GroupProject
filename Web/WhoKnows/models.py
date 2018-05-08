@@ -275,8 +275,7 @@ class User:
         '''
         MATCH (q:Question), (me:User), (th:User), (t:Topic)
         WHERE me.username={username} AND
-        ( (me)-[:FOLLOWS]->(th) AND ((th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q)) OR
-        ((q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t)))
+        ( (me)-[:FOLLOWS]->(th) AND ( (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) ) ) OR ((q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t))
         OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
         RETURN q, (CASE WHEN MAX(re.date) > (q.date) THEN MAX(re.date) ELSE q.date END) AS cnt ORDER BY cnt DESC
         '''
@@ -285,13 +284,16 @@ class User:
         '''
         MATCH (q:Question), (me:User), (th:User), (t:Topic)
         WHERE me.username={username} AND
-        ( (me)-[:FOLLOWS]->(th) AND ((th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q)) OR
-        ((q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t)))
+        ( (me)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q)  )  ) OR (  (q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t)  )
         OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
         RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC
         '''
 
         #Question 11
         '''
-
+        MATCH (q:Question), (me:User), (th:User), (t:Topic)
+        WHERE me.username={username} AND
+        ( (me)-[:FOLLOWS]->(:User)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) )  )  )
+        OPTIONAL MATCH (b:User)-[:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
+        RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC
         '''
