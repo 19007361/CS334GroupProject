@@ -90,6 +90,11 @@ def profile(name):
         userPosts = []
         noUP = 0
         following = False
+        #qDate, qUV, qsecond
+        qDate, noQD = User(session['username']).getQDate(session['username'])
+        qUV, noQD = User(session['username']).getQUpvote(session['username'])
+        qSecond, noSecond = User(session['username']).getSecondLevelFollow(session['username'])
+
     else:
         bookmarkedQ = []
         noBMQ = 0
@@ -98,8 +103,13 @@ def profile(name):
         #POSED QUESTIONS - OTHER PROFILE only
         following = User(session['username']).isFollowing(name)
         userPosts, noUP = User(session['username']).getUserPosts(name)
+        qDate = []
+        noQD = 0
+        qUV = []
+        qSecond =[]
+        noSecond = 0
 
-    return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), otherUpvote = User(session['username']).getOtherUV(otherUser=name), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name = name, userPosts = userPosts, noUP= noUP, following = following)
+    return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), otherUpvote = User(session['username']).getOtherUV(otherUser=name), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name = name, userPosts = userPosts, noUP= noUP, following = following, qDate=qDate, noQD = noQD, qUV = qUV, qSecond=qSecond, noSecond=noSecond)
 
 @app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):
@@ -160,3 +170,11 @@ def logout():
 @app.route('/searchH', methods=['POST'])
 def searchH():
     return redirect(url_for('search', query=request.form['sq']))
+
+@app.errorhandler(500)
+def goHome(e):
+    return redirect(url_for('index'))
+
+@app.errorhandler(404)
+def gotLost(e):
+    return render_template('404.html')

@@ -271,29 +271,53 @@ class User:
             c += 1
         return poster, ld, liked, c, cc
 
-        #Question 9
-        '''
-        MATCH (q:Question), (me:User), (th:User), (t:Topic)
-        WHERE me.username={username} AND
-        ( (me)-[:FOLLOWS]->(th) AND ( (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) ) ) OR ((q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t))
-        OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
-        RETURN q, (CASE WHEN MAX(re.date) > (q.date) THEN MAX(re.date) ELSE q.date END) AS cnt ORDER BY cnt DESC
-        '''
+    #Question 9
+    '''
+    MATCH (q:Question), (me:User), (th:User), (t:Topic)
+    WHERE me.username={username} AND
+    ( (me)-[:FOLLOWS]->(th) AND ( (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) ) ) OR ((q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t))
+    OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
+    RETURN q, (CASE WHEN MAX(re.date) > (q.date) THEN MAX(re.date) ELSE q.date END) AS cnt ORDER BY cnt DESC
+    '''
+    def getQDate(self, username):
+        q = "MATCH (q:Question), (me:User), (th:User), (t:Topic) WHERE me.username={username} AND ( (me)-[:FOLLOWS]->(th) AND ( (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) ) ) OR ((q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t)) OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q) RETURN q, (CASE WHEN MAX(re.date) > (q.date) THEN MAX(re.date) ELSE q.date END) AS cnt ORDER BY cnt DESC"
+        out = []
+        c = 0
+        for res in graph.run(q, username=username):
+            out.append([res['q']['id'], res['q']['title'], res['q']['text']])
+            c += 1
+        return out, c
 
-        #Question 10
-        '''
-        MATCH (q:Question), (me:User), (th:User), (t:Topic)
-        WHERE me.username={username} AND
-        ( (me)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q)  )  ) OR (  (q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t)  )
-        OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
-        RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC
-        '''
+    #Question 10
+    '''
+    MATCH (q:Question), (me:User), (th:User), (t:Topic)
+    WHERE me.username={username} AND
+    ( (me)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q)  )  ) OR (  (q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t)  )
+    OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
+    RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC
+    '''
+    def getQUpvote(self, username):
+        q = "MATCH (q:Question), (me:User), (th:User), (t:Topic) WHERE me.username={username} AND ( (me)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q)  )  ) OR (  (q)-[:TAGGED]-(t) AND (me)-[:LIKES]-(t)  ) OPTIONAL MATCH (b:User)-[uu:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q) RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC"
+        out = []
+        c = 0
+        for res in graph.run(q, username=username):
+            out.append([res['q']['id'], res['q']['title'], res['q']['text']])
+            c += 1
+        return out, c
 
-        #Question 11
-        '''
-        MATCH (q:Question), (me:User), (th:User), (t:Topic)
-        WHERE me.username={username} AND
-        ( (me)-[:FOLLOWS]->(:User)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) )  )  )
-        OPTIONAL MATCH (b:User)-[:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
-        RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC
-        '''
+    #Question 11
+    '''
+    MATCH (q:Question), (me:User), (th:User), (t:Topic)
+    WHERE me.username={username} AND
+    ( (me)-[:FOLLOWS]->(:User)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) )  )  )
+    OPTIONAL MATCH (b:User)-[:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q)
+    RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC LIMIT 10
+    '''
+    def getSecondLevelFollow(self, username):
+        q = "MATCH (q:Question), (me:User), (th:User), (t:Topic) WHERE me.username={username} AND ( (me)-[:FOLLOWS]->(:User)-[:FOLLOWS]->(th) AND (  (th)-[:ASKED]->(q) OR (th)-[:ANSWERED]->(:Reply)-[:REPLYTO]->(q) )  ) OPTIONAL MATCH (b:User)-[:UPVOTED]-(re:Reply) WHERE (re)-[:REPLYTO]-(q) RETURN q, count(DISTINCT(b)) AS cnt ORDER BY cnt DESC LIMIT 10"
+        out = []
+        c = 0
+        for res in graph.run(q, username=username):
+            out.append([res['q']['id'], res['q']['title'], res['q']['text']])
+            c += 1
+        return out, c

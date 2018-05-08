@@ -17,7 +17,7 @@
 {% endif %}
 
   <div class="row">
-    <div class="col-sm-4 col-lg-2"> <!-- TODO have to add more granularity -->
+    <div class="col-sm-4 col-lg-2">
       {% if currentUser == True %}
       <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" width="100%" alt="default" class="rounded-circle">
       {% else %}
@@ -138,7 +138,7 @@
         {% if following == True %}
         {% if noUP == 0 %}
         <li class="list-group-item">
-          <h5>Dude, no way... This guy hasn't posted yet...</h5>
+          <h5>This user has made no posts yet.</h5>
         </li>
         {% else %}
         {% for i in range(noUP) %}
@@ -171,6 +171,72 @@
   </div>
   {% endif %}
 
+  {% if currentUser == True %}
+  <div class="container-fluid">
+
+    <div class="card">
+      <div class="card-header">
+        <h4 style="display: inline">Questions you might have an interest in</h4>
+        <button class="btn btn-outline-primary float-right" data-toggle="collapse" data-target=".collapese"><i class="fas fa-sort-numeric-down"></i></button>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% if noQD == 0 %}
+        <li class="list-group-item">
+          There are no posts recommended for you. This can be rectified by following other user's and following certain topics. This can be accessed from search and editing profile respectively.
+        </li>
+        {% else %}
+        <div class="collapse collapese show">
+          <li class="list-group-item">
+            <h5>Sorted by Date</h5>
+          </li>
+        {% for i in range(noQD) %}
+        <li class="list-group-item">
+          <h5>{{qDate[i][1]}}</h5>
+          {{qDate[i][2]}}
+          <a href="/q/{{qDate[i][0]}}" class="float-right">read more</a>
+        </li>
+        {% endfor %}
+        </div>
+
+        <div class="collapse collapese">
+          <li class="list-group-item">
+            <h5>Sorted by Upvotes</h5>
+          </li>
+        {% for i in range(noQD) %}
+        <li class="list-group-item">
+          <h5>{{qUV[i][1]}}</h5>
+          {{qUV[i][2]}}
+          <a href="/q/{{qUV[i][0]}}" class="float-right">read more</a>
+        </li>
+        {% endfor %}
+        </div>
+        {% endif %}
+      </ul>
+    </div>
+
+    <div class="card">
+      <div class="card-header">
+        <h4>Content people who you follow can see</h4>
+      </div>
+      <ul class="list-group list-group-flush">
+        {% if noSecond == 0 %}
+        <li class="list-group-item">
+          <h5>No results found</h5>
+        </li>
+        {% else %}
+        {% for i in range(noSecond) %}
+        <li class="list-group-item">
+          <h5>{{qSecond[i][1]}}</h5>
+          {{qSecond[i][2]}}
+          <a href="/q/{{results[i][0]}}" class="float-right">read more</a>
+        </li>
+        {% endfor %}
+        {% endif %}
+      </ul>
+    </div>
+
+  </div>
+{% endif %}
     </div>
   </div> <!-- ROW -->
 
