@@ -17,7 +17,7 @@
 {% endif %}
 
   <div class="row">
-    <div class="col-sm-2"> <!-- TODO have to add more granularity -->
+    <div class="col-sm-4 col-lg-2"> <!-- TODO have to add more granularity -->
       {% if currentUser == True %}
       <img src="{{ url_for('static', filename='Users/'+me[0]+'.png') }}" width="100%" alt="default" class="rounded-circle">
       {% else %}
@@ -81,7 +81,7 @@
     </div>
 
 
-    <div class="col-sm-10">
+    <div class="col-sm-8 col-lg-10">
       {% if currentUser == True %}
       <div class="container-fluid">
         {% if noBMQ > 0 %}
