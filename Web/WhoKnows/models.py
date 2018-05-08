@@ -9,8 +9,8 @@ import shutil
 graph = Graph(username = "Database", password = "password")
 
 def initDB():
-    topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
-    user = graph.find_one('Topic', 'topic', "Pschology")
+    topics = ['Psychology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
+    user = graph.find_one('Topic', 'topic', "Psychology")
     if user == None:
         for i in range(len(topics)):
             graph.create(Node("Topic", topic=topics[i]))
@@ -46,7 +46,7 @@ class User:
 
     def getFollowed(self):
         q = "MATCH (u:User)-[:LIKES]->(n:Topic) WHERE u.username={user} return n"
-        topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
+        topics = ['Psychology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
         out = [False, False, False, False, False, False, False]
         for record in graph.run(q, user=self.username):
             for i in range(len(topics)):
@@ -125,7 +125,7 @@ class User:
             user = Node("User", username=self.username, password=bcrypt.encrypt(password), email=email, fullName=name, bio="")
             graph.create(user)
 
-            topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
+            topics = ['Psychology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
             for i in range(len(cbs)):
                 if cbs[i]:
                     topic = graph.find_one('Topic', 'topic', topics[i])
@@ -144,7 +144,7 @@ class User:
 
     def addQuestion(self, title, tag, text):
         user = self.find()
-        topics = ['Pschology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
+        topics = ['Psychology', 'Travel', 'Entertainment', 'Food', 'Hobbies', 'Nightlife', 'Science']
         post = Node(
                 "Question",
                 id=str(uuid.uuid4()),
