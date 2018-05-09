@@ -61,7 +61,7 @@ def profile(name):
             original = True
             if 'edit' in request.form:
                 edit=True
-            else:
+            elif 'SUBME' in request.form:
                 User(session['username']).editBio(request.form['bioEdit'])
                 cbs = ['cbPsychology' in request.form, 'cbTravel' in request.form, 'cbEntertainment' in request.form, 'cbFood' in request.form, 'cbHobbies' in request.form, 'cbNightlife' in request.form, 'cbScience' in request.form]
                 User(session['username']).updateFollowed(cbs, fllw)
@@ -81,7 +81,7 @@ def profile(name):
 
     if session['username'] == name:
         original = True
-        fllw = User(session['username']).getFollowed()
+        #fllw = User(session['username']).getFollowed()
         #Bookmarked Questions
         bookmarkedQ, noBMQ = User(session['username']).getBookmarked()
         #Suggested Follow - OWN PROFILE ONLY
@@ -109,7 +109,8 @@ def profile(name):
         qSecond =[]
         noSecond = 0
 
-    return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, bio = "This is a test bio", noUpvote = User(session['username']).getTotUV(), otherUpvote = User(session['username']).getOtherUV(otherUser=name), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name = name, userPosts = userPosts, noUP= noUP, following = following, qDate=qDate, noQD = noQD, qUV = qUV, qSecond=qSecond, noSecond=noSecond)
+
+    return render_template('profile.html', me = User(session['username']).getMe(), other = User(session['username']).getOther(otherUser=name), currentUser = original, edit = edit, noUpvote = User(session['username']).getTotUV(), otherUpvote = User(session['username']).getOtherUV(otherUser=name), fllw = fllw, bookmarkedQ=bookmarkedQ, noBMQ=noBMQ, suggestedUser = suggestedUser, noSU = noSU, name = name, userPosts = userPosts, noUP= noUP, following = following, qDate=qDate, noQD = noQD, qUV = qUV, qSecond=qSecond, noSecond=noSecond)
 
 @app.route('/s/<query>', methods=['GET', 'POST'])
 def search(query):

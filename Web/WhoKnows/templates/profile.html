@@ -10,7 +10,7 @@
 <div class="alert alert-warning alert-dismissible fade show" role="alert">
   <center>
     You are editing your profile now!<br>
-    <button class="btn btn-success btn-sm btn-warning" > Submit changes </button>
+    <button class="btn btn-success btn-sm btn-warning" name="SUBME" value="True" > Submit changes </button>
   </center>
 
 </div>
@@ -228,7 +228,7 @@
         <li class="list-group-item">
           <h5>{{qSecond[i][1]}}</h5>
           {{qSecond[i][2]}}
-          <a href="/q/{{results[i][0]}}" class="float-right">read more</a>
+          <a href="/q/{{qSecond[i][0]}}" class="float-right">read more</a>
         </li>
         {% endfor %}
         {% endif %}
